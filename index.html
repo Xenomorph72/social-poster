@@ -640,7 +640,18 @@
       
       document.getElementById('x-post').value = fixNewlines(dayData.x) || '';
       document.getElementById('ig-post').value = fixNewlines(dayData.ig) || '';
-      document.getElementById('video-post').value = fixNewlines(dayData.video) || '';
+      
+      // Handle new video format (object with image_description and script)
+      if (typeof dayData.video === 'object' && dayData.video !== null) {
+        // Prefer script, but include image_description if available
+        const script = dayData.video.script || '';
+        const imageDesc = dayData.video.image_description || '';
+        // Combine image description and script for the textarea
+        document.getElementById('video-post').value = (imageDesc ? `[IMAGE DESCRIPTION]\n${imageDesc}\n\n[SCRIPT]\n${script}` : script) || '';
+      } else {
+        // Fallback for old string format
+        document.getElementById('video-post').value = fixNewlines(dayData.video) || '';
+      }
       
       updateCharCount();
       document.getElementById('editor').classList.add('active');
