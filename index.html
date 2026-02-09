@@ -525,9 +525,29 @@
       }
     }
     
-    // Local campaigns fallback
-    function loadLocalCampaigns() {
-      campaigns = JSON.parse(localStorage.getItem('socialCampaigns') || []);
+    // Local campaigns fallback (localStorage + campaigns.json)
+    async function loadLocalCampaigns() {
+      // First try localStorage
+      let localCampaigns = JSON.parse(localStorage.getItem('socialCampaigns') || '[]');
+      
+      // Then try campaigns.json file
+      try {
+        const response = await fetch('campaigns.json');
+        if (response.ok) {
+          const fileCampaigns = await response.json();
+          // Merge, preferring newer ones
+          const existingIds = new Set(localCampaigns.map(c => c.name));
+          fileCampaigns.forEach(c => {
+            if (!existingIds.has(c.name)) {
+              localCampaigns.push(c);
+            }
+          });
+        }
+      } catch(e) {
+        // campaigns.json not available (local development)
+      }
+      
+      campaigns = localCampaigns;
       renderCampaigns();
     }
     
@@ -540,22 +560,22 @@
         return;
       }
       
-      list.innerHTML = campaigns.map(c => `
-        <div class="campaign-item ${currentCampaign?.id === c.id ? 'active' : ''}" onclick="selectCampaign('${c.id}')">
+      list.innerHTML = campaigns.map((c, index) => `
+        <div class="campaign-item ${currentCampaign === c ? 'active' : ''}" onclick="selectCampaign(${index})">
           <div>
             <div class="campaign-name">${c.name}</div>
             <div class="campaign-meta">${c.description || '7 posts'} • Created ${new Date(c.createdAt).toLocaleDateString()}</div>
           </div>
-          <div class="campaign-badge ${currentCampaign?.id === c.id ? 'loaded' : 'ready'}">
-            ${currentCampaign?.id === c.id ? '✓ Loaded' : 'Ready'}
+          <div class="campaign-badge ${currentCampaign === c ? 'loaded' : 'ready'}">
+            ${currentCampaign === c ? '✓ Loaded' : 'Ready'}
           </div>
         </div>
       `).join('');
     }
     
     // Select campaign
-    function selectCampaign(id) {
-      currentCampaign = campaigns.find(c => c.id === id);
+    function selectCampaign(index) {
+      currentCampaign = campaigns[index];
       weekData = currentCampaign?.posts || {};
       
       document.getElementById('week-section').style.display = 'block';
