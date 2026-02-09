@@ -1,136 +1,564 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>FILM426 Social Poster</title>
+  <title>FILM426 Social Poster Pro</title>
   <style>
-    body { font-family: Arial; max-width: 1200px; margin: 0 auto; padding: 20px; background: #1a1a1a; color: #fff; }
-    h1 { color: #fff; }
-    .input-section { background: #2a2a2a; padding: 20px; margin-bottom: 20px; border-radius: 8px; }
-    input { width: 100%; padding: 10px; margin: 5px 0; background: #333; color: #fff; border: 1px solid #444; }
-    .posts-section { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
-    .post-box { background: #2a2a2a; padding: 15px; border-radius: 8px; }
-    .post-box h3 { margin-top: 0; color: #007bff; }
-    textarea { width: 100%; height: 200px; background: #333; color: #fff; border: 1px solid #444; padding: 10px; font-family: monospace; }
-    button { background: #007bff; color: white; padding: 10px 20px; border: none; cursor: pointer; margin: 5px; }
-    button:hover { background: #0056b3; }
-    button.archive-btn { background: #28a745; }
-    button.copy-btn { background: #6c757d; }
-    .archive { margin-top: 30px; background: #2a2a2a; padding: 20px; border-radius: 8px; }
-    .archive-item { background: #333; padding: 10px; margin: 5px 0; border-radius: 4px; }
-    .char-count { color: #aaa; font-size: 12px; }
+    * { box-sizing: border-box; }
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial; 
+      max-width: 1400px; 
+      margin: 0 auto; 
+      padding: 20px; 
+      background: #0d1117; 
+      color: #c9d1d9; 
+    }
+    h1 { color: #58a6ff; margin-bottom: 5px; }
+    .subtitle { color: #8b949e; margin-bottom: 20px; }
+    
+    .week-generator {
+      background: #161b22;
+      border: 1px solid #30363d;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+    .week-generator input {
+      width: 100%;
+      padding: 12px;
+      background: #0d1117;
+      border: 1px solid #30363d;
+      color: #c9d1d9;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    .week-generator button {
+      margin-top: 10px;
+      background: #238636;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .week-generator button:hover { background: #2ea043; }
+    
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .day-card {
+      background: #161b22;
+      border: 2px solid #30363d;
+      border-radius: 10px;
+      padding: 15px;
+      min-height: 120px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .day-card:hover { border-color: #58a6ff; }
+    .day-card.active { border-color: #238636; background: #0d1117; }
+    .day-card.used { border-color: #8b949e; opacity: 0.6; }
+    .day-name { font-size: 12px; color: #8b949e; text-transform: uppercase; }
+    .day-date { font-size: 14px; font-weight: bold; color: #c9d1d9; margin: 5px 0; }
+    .post-type { 
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      margin-top: 5px;
+    }
+    .post-type.announce { background: #da3633; color: white; }
+    .post-type.teaser { background: #f0883e; color: black; }
+    .post-type.behind { background: #8957e5; color: white; }
+    .post-type.release { background: #238636; color: white; }
+    .post-type.followup { background: #1f6feb; color: white; }
+    .post-type.reminder { background: #8b949e; color: black; }
+    .post-type.poll { background: #a371f7; color: white; }
+    
+    .editor {
+      background: #161b22;
+      border: 1px solid #30363d;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      display: none;
+    }
+    .editor.active { display: block; }
+    .editor-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    .editor h2 { margin: 0; color: #58a6ff; }
+    .close-btn {
+      background: #da3633;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    
+    .posts-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 15px;
+    }
+    .post-box {
+      background: #0d1117;
+      border: 1px solid #30363d;
+      padding: 15px;
+      border-radius: 8px;
+    }
+    .post-box h3 { margin-top: 0; color: #58a6ff; font-size: 14px; }
+    textarea {
+      width: 100%;
+      height: 180px;
+      background: #010409;
+      border: 1px solid #30363d;
+      color: #c9d1d9;
+      padding: 10px;
+      font-family: monospace;
+      font-size: 13px;
+      border-radius: 6px;
+      resize: vertical;
+    }
+    .char-count { color: #8b949e; font-size: 11px; margin-top: 5px; }
+    .action-btns {
+      margin-top: 15px;
+      display: flex;
+      gap: 10px;
+    }
+    .action-btns button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+    .copy-btn { background: #6e7681; color: white; }
+    .copy-btn:hover { background: #8b949e; }
+    .archive-btn { background: #238636; color: white; }
+    .archive-btn:hover { background: #2ea043; }
+    
+    .archive-section {
+      background: #161b22;
+      border: 1px solid #30363d;
+      padding: 20px;
+      border-radius: 12px;
+    }
+    .archive-section h2 { margin-top: 0; color: #58a6ff; }
+    .archive-list {
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    .archive-item {
+      background: #0d1117;
+      border: 1px solid #30363d;
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .archive-item:hover { border-color: #58a6ff; }
+    .archive-info { flex: 1; }
+    .archive-date { font-size: 12px; color: #8b949e; }
+    .archive-title { font-weight: bold; color: #c9d1d9; }
+    .archive-actions button {
+      background: #1f6feb;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      margin-left: 5px;
+    }
+    
+    .loading {
+      display: none;
+      text-align: center;
+      padding: 20px;
+      color: #8b949e;
+    }
+    .loading.active { display: block; }
+    
+    .status-msg {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 12px 20px;
+      border-radius: 8px;
+      color: white;
+      font-size: 14px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: 1000;
+    }
+    .status-msg.show { opacity: 1; }
+    .status-msg.success { background: #238636; }
+    .status-msg.error { background: #da3633; }
   </style>
 </head>
 <body>
-  <h1>🎵 FILM426 Social Poster</h1>
+  <h1>🎵 FILM426 Social Poster Pro</h1>
+  <div class="subtitle">Weekly Campaign Manager</div>
   
-  <div class="input-section">
-    <input type="text" id="what" placeholder="What: (e.g., The Astral Promenade album release)">
-    <input type="text" id="why" placeholder="Why: (e.g., Ethereal synthwave journey)">
-    <input type="text" id="link" placeholder="Link: (e.g., https://distrokid.com/...)">
-    <button onclick="generate()">Generate Posts</button>
+  <div class="week-generator">
+    <input type="text" id="campaign-prompt" placeholder="e.g., Create this week's posts for promoting THE FINE PRINT album release">
+    <button onclick="generateWeek()">🎯 Generate Week</button>
   </div>
-
-  <div class="posts-section">
-    <div class="post-box">
-      <h3>X / Threads</h3>
-      <textarea id="x-post" placeholder="X/Threads post will appear here..."></textarea>
-      <div class="char-count" id="x-count">0/280</div>
-      <button class="copy-btn" onclick="copy('x-post')">Copy</button>
+  
+  <div class="loading" id="loading">
+    <p>Generating posts with AI...</p>
+  </div>
+  
+  <div class="calendar-grid" id="calendar">
+    <!-- Days generated by JS -->
+  </div>
+  
+  <div class="editor" id="editor">
+    <div class="editor-header">
+      <h2 id="editor-title">Day 1 - Announce</h2>
+      <button class="close-btn" onclick="closeEditor()">✕ Close</button>
     </div>
-
-    <div class="post-box">
-      <h3>Instagram / Facebook</h3>
-      <textarea id="ig-post" placeholder="Instagram/Facebook post will appear here..."></textarea>
-      <button class="copy-btn" onclick="copy('ig-post')">Copy</button>
+    <div class="posts-section">
+      <div class="post-box">
+        <h3>X / Threads</h3>
+        <textarea id="x-post" placeholder="X/Threads post..."></textarea>
+        <div class="char-count" id="x-count">0/280</div>
+      </div>
+      <div class="post-box">
+        <h3>Instagram / Facebook</h3>
+        <textarea id="ig-post" placeholder="Instagram/Facebook post..."></textarea>
+      </div>
+      <div class="post-box">
+        <h3>TikTok / YouTube Shorts</h3>
+        <textarea id="video-post" placeholder="TikTok/YouTube script..."></textarea>
+      </div>
     </div>
-
-    <div class="post-box">
-      <h3>TikTok / YouTube Shorts</h3>
-      <textarea id="video-post" placeholder="TikTok/YouTube script will appear here..."></textarea>
-      <button class="copy-btn" onclick="copy('video-post')">Copy</button>
+    <div class="action-btns">
+      <button class="copy-btn" onclick="copyAll()">📋 Copy All 3</button>
+      <button class="archive-btn" onclick="archiveDay()">📁 Archive & Clear Day</button>
     </div>
   </div>
-
-  <button class="archive-btn" onclick="archive()">📁 Archive This Package</button>
-
-  <div class="archive">
+  
+  <div class="archive-section">
     <h2>📁 Archive</h2>
-    <div id="archive-list"></div>
+    <div class="archive-list" id="archive-list">
+      <p style="color: #8b949e;">No archived posts yet.</p>
+    </div>
   </div>
+  
+  <div class="status-msg" id="status"></div>
 
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+  
   <script>
-    let archives = JSON.parse(localStorage.getItem('archives') || '[]');
-    renderArchive();
-
-    function generate() {
-      const what = document.getElementById('what').value;
-      const why = document.getElementById('why').value;
-      const link = document.getElementById('link').value;
-
-      const xText = `🎵 ${what} is here! ✨\n\n${why}\n\n🔗 ${link}\n\n#NewMusic #NowPlaying #FILM426`;
-      
-      const igText = `🎵 ${what} 🎵\n\n${why}\n\nThis one's been a journey... ✨\n\n🔗 Link in bio\n\n.#NewMusic #NowPlaying #FILM426 #ElectronicMusic #Synthwave #ProducerLife`;
-
-      const videoText = `HOOK (0-3s): "Wait for this drop..."\n\nSETUP (3-10s): "${what} - ${why}"\n\nDROP (10-20s): [Music plays + visual]\n\nCTA (20-30s): "Stream link in bio!"\n\nOUTRO: ${link}`;
-
-      document.getElementById('x-post').value = xText;
-      document.getElementById('ig-post').value = igText;
-      document.getElementById('video-post').value = videoText;
-      
-      document.getElementById('x-count').textContent = xText.length + '/280 chars';
+    // Firebase config - same as Dash-Clawd
+    const firebaseConfig = {
+      apiKey: "AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      authDomain: "dash-clawd.firebaseapp.com",
+      projectId: "dash-clawd",
+      storageBucket: "dash-clawd.appspot.com",
+      messagingSenderId: "123456789",
+      appId: "1:123456789:web:xxxxxxxxxxxxxxxx"
+    };
+    
+    // Initialize Firebase (will work with anon auth for now)
+    let db;
+    try {
+      firebase.initializeApp(firebaseConfig);
+      db = firebase.firestore();
+    } catch(e) {
+      console.log('Firebase not configured, using localStorage');
     }
-
-    function copy(id) {
-      const el = document.getElementById(id);
-      el.select();
-      document.execCommand('copy');
+    
+    let weekData = {};
+    let currentDay = null;
+    let archive = JSON.parse(localStorage.getItem('socialArchive') || '[]');
+    
+    const postTypes = ['announce', 'teaser', 'behind', 'release', 'followup', 'reminder', 'poll'];
+    const typeLabels = {
+      announce: '📢 Announce',
+      teaser: '👀 Teaser', 
+      behind: '🎬 Behind Scenes',
+      release: '🚀 Release',
+      followup: '💬 Follow-up',
+      reminder: '⏰ Reminder',
+      poll: '📊 Poll'
+    };
+    
+    // Generate next 7 days
+    function initCalendar() {
+      const calendar = document.getElementById('calendar');
+      calendar.innerHTML = '';
+      const today = new Date();
+      
+      for (let i = 0; i < 7; i++) {
+        const date = new Date(today);
+        date.setDate(today.getDate() + i);
+        
+        const dayKey = date.toISOString().split('T')[0];
+        const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
+        const dayNum = date.getDate();
+        
+        const dayData = weekData[dayKey] || {};
+        const hasContent = dayData.x || dayData.ig;
+        const isUsed = dayData.used;
+        
+        const card = document.createElement('div');
+        card.className = `day-card ${hasContent ? 'active' : ''} ${isUsed ? 'used' : ''}`;
+        card.onclick = () => openDay(dayKey, date);
+        
+        card.innerHTML = `
+          <div class="day-name">${dayName}</div>
+          <div class="day-date">${dayNum}</div>
+          ${dayData.type ? `<span class="post-type ${dayData.type}">${typeLabels[dayData.type]}</span>` : ''}
+          ${hasContent ? '<div style="margin-top:8px;font-size:11px;color:#58a6ff;">✓ Ready</div>' : ''}
+        `;
+        
+        calendar.appendChild(card);
+      }
     }
-
-    function archive() {
-      const what = document.getElementById('what').value;
+    
+    // Generate week of posts
+    async function generateWeek() {
+      const prompt = document.getElementById('campaign-prompt').value;
+      if (!prompt) {
+        showStatus('Enter a campaign prompt first', 'error');
+        return;
+      }
+      
+      document.getElementById('loading').classList.add('active');
+      
+      // For now, use templates. In future, could call AI API
+      const templates = generateTemplates(prompt);
+      
+      const today = new Date();
+      weekData = {};
+      
+      for (let i = 0; i < 7; i++) {
+        const date = new Date(today);
+        date.setDate(today.getDate() + i);
+        const dayKey = date.toISOString().split('T')[0];
+        
+        weekData[dayKey] = {
+          date: dayKey,
+          type: templates[i].type,
+          x: templates[i].x,
+          ig: templates[i].ig,
+          video: templates[i].video,
+          used: false
+        };
+      }
+      
+      // Save to Firebase if available, else localStorage
+      if (db) {
+        await db.collection('socialWeeks').doc('current').set({
+          weekData,
+          updatedAt: Date.now()
+        });
+      }
+      localStorage.setItem('socialWeek', JSON.stringify(weekData));
+      
+      document.getElementById('loading').classList.remove('active');
+      initCalendar();
+      showStatus('Week generated! Click any day to edit.', 'success');
+    }
+    
+    // Template generator
+    function generateTemplates(prompt) {
+      // Extract what we're promoting
+      const what = prompt.replace(/create.*posts.*for/i, '').trim() || 'THE FINE PRINT album';
+      
+      return [
+        {
+          type: 'teaser',
+          x: `👀 Something's coming...\n\n${what}\n\nCan you feel it? ✨\n\n#FILM426 #ComingSoon`,
+          ig: `👀 SOMETHING'S COMING 👀\n\n${what}\n\nThe countdown begins...\n\nWhat do you think is dropping? 👇\n\n.#FILM426 #ComingSoon #NewMusic`,
+          video: `HOOK: "Wait for it..."\nVISUAL: Mysterious album art reveal\nTEXT: "Something drops soon"\nCTA: "Follow to be first to know"`
+        },
+        {
+          type: 'behind',
+          x: `🎬 Behind the scenes:\n\nMaking ${what}\n\nThe late nights. The coffee. The chaos.\n\nIt's all worth it. 🖤\n\n#FILM426 #BehindTheMusic`,
+          ig: `🎬 BEHIND THE SCENES 🎬\n\n${what}\n\nSwipe to see the process →\n\nLate nights. Cold coffee. Pure magic.\n\nWhich track are you most excited for? 👇\n\n.#FILM426 #BTS #StudioLife #Producer`,
+          video: `HOOK: "This is how it's made..."\nB-ROLL: Studio footage, synths, mixing\nVOICEOVER: "Every sound has a story"\nCTA: "Full album drops soon - link in bio"`
+        },
+        {
+          type: 'announce',
+          x: `📢 IT'S HERE!\n\n${what} is officially OUT NOW! 🚀\n\nStream it everywhere:\n[LINK]\n\nLet me know your favorite track! 🖤\n\n#NewMusic #FILM426 #NowPlaying`,
+          ig: `📢 IT'S HERE! 📢\n\n${what}\n\n🚀 OFFICIALLY OUT NOW 🚀\n\nThis one's been months in the making.\nEvery track is a piece of my soul.\n\nLink in bio to stream!\n\nWhat's your vibe today? Drop a 🖤 if you're listening!\n\n.#NewMusic #FILM426 #OutNow #ElectronicMusic #Synthwave`,
+          video: `HOOK (0-3s): "IT'S HERE!"\nDROP (3-15s): [Best drop from album]\nTEXT OVERLAY: "${what} - OUT NOW"\nCTA (15-30s): "Stream link in bio! Which track hits different?"`
+        },
+        {
+          type: 'release',
+          x: `🚀 ${what}\n\nDay 1 has been INSANE.\n\nThank you to everyone streaming, sharing, vibing.\n\nThis is just the beginning. 🖤\n\n#FILM426 #Grateful`,
+          ig: `🚀 RELEASE DAY ENERGY 🚀\n\n${what}\n\nDay 1 has been absolutely WILD.\n\nTo everyone streaming, sharing, commenting -\nyou're the reason I do this.\n\nKeep the vibes going! Link in bio 🖤\n\n.#FILM426 #ReleaseDay #Grateful #NewMusic`,
+          video: `HOOK: "Day 1 recap..."\nMONTAGE: Stream counts, comments, reactions\nTEXT: "You did this"\nCTA: "Keep streaming - link in bio"`
+        },
+        {
+          type: 'followup',
+          x: `💬 Quick question:\n\nWhat's your favorite track from ${what}?\n\nMine changes daily 😅\n\nDrop yours below! 👇\n\n#FILM426 #MusicTalk`,
+          ig: `💬 REAL TALK 💬\n\n${what}\n\nWhat's your CURRENT favorite track?\n\nMine keeps changing depending on my mood.\n\nDrop yours below + tell me WHY 👇\n\n.#FILM426 #MusicTalk #FavoriteTrack #Playlist`,
+          video: `HOOK: "I need to know..."\nTEXT: "Favorite track?"\nSHOW: Track list with polls\nCTA: "Comment your pick!"`
+        },
+        {
+          type: 'reminder',
+          x: `⏰ Weekend reminder:\n\nIf you haven't checked out ${what} yet...\n\nWhat are you waiting for? 😏\n\n[LINK]\n\n#FILM426 #WeekendVibes`,
+          ig: `⏰ WEEKEND REMINDER ⏰\n\n${what}\n\nStill haven't hit play?\n\nPerfect weekend soundtrack right here ↓\n\nLink in bio 🎧\n\n.#FILM426 #WeekendVibes #NewMusic #Playlist`,
+          video: `HOOK: "Weekend soundtrack..."\nPLAY: Best chill track\nTEXT: "${what}"\nCTA: "Link in bio - perfect weekend vibes"`
+        },
+        {
+          type: 'poll',
+          x: `📊 This or That:\n\n${what} tracks:\n\nSide A (tracks 1-7)\nOR\nSide B (tracks 8-15)?\n\nI'm Team [PICK] 🖤\n\n#FILM426 #Poll`,
+          ig: `📊 THIS OR THAT 📊\n\n${what}\n\nSide A (tracks 1-7)\nvs\nSide B (tracks 8-15)\n\nWhich side hits harder?\n\nVote in the poll! 👇\n\n.#FILM426 #ThisOrThat #MusicPoll`,
+          video: `SPLIT SCREEN: Side A vs Side B\nTEXT: "Which side?"\nPOLL STICKER: Side A / Side B\nCTA: "Vote now!"`
+        }
+      ];
+    }
+    
+    // Open day editor
+    function openDay(dayKey, dateObj) {
+      currentDay = dayKey;
+      const dayData = weekData[dayKey] || {};
+      
+      document.getElementById('editor-title').textContent = 
+        `${dateObj.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })} ${dayData.type ? '- ' + typeLabels[dayData.type] : ''}`;
+      
+      document.getElementById('x-post').value = dayData.x || '';
+      document.getElementById('ig-post').value = dayData.ig || '';
+      document.getElementById('video-post').value = dayData.video || '';
+      
+      updateCharCount();
+      document.getElementById('editor').classList.add('active');
+      document.getElementById('x-post').focus();
+    }
+    
+    function closeEditor() {
+      // Save current edits
+      if (currentDay && weekData[currentDay]) {
+        weekData[currentDay].x = document.getElementById('x-post').value;
+        weekData[currentDay].ig = document.getElementById('ig-post').value;
+        weekData[currentDay].video = document.getElementById('video-post').value;
+        localStorage.setItem('socialWeek', JSON.stringify(weekData));
+      }
+      document.getElementById('editor').classList.remove('active');
+      currentDay = null;
+      initCalendar();
+    }
+    
+    // Archive day
+    async function archiveDay() {
+      if (!currentDay || !weekData[currentDay]) return;
+      
+      const dayData = weekData[currentDay];
+      const archiveEntry = {
+        ...dayData,
+        archivedAt: new Date().toISOString(),
+        archivedDate: new Date().toLocaleDateString()
+      };
+      
+      archive.unshift(archiveEntry);
+      localStorage.setItem('socialArchive', JSON.stringify(archive));
+      
+      if (db) {
+        await db.collection('socialArchive').add(archiveEntry);
+      }
+      
+      // Clear from week
+      weekData[currentDay] = { ...weekData[currentDay], x: '', ig: '', video: '', used: true };
+      localStorage.setItem('socialWeek', JSON.stringify(weekData));
+      
+      document.getElementById('editor').classList.remove('active');
+      currentDay = null;
+      initCalendar();
+      renderArchive();
+      showStatus('Day archived!', 'success');
+    }
+    
+    // Copy all posts
+    function copyAll() {
       const x = document.getElementById('x-post').value;
       const ig = document.getElementById('ig-post').value;
       const video = document.getElementById('video-post').value;
       
-      if (!what || !x) {
-        alert('Generate posts first!');
-        return;
-      }
-
-      const timestamp = new Date().toLocaleString();
-      archives.unshift({ what, x, ig, video, timestamp });
-      localStorage.setItem('archives', JSON.stringify(archives));
+      const all = `=== X/THREADS ===\n${x}\n\n=== INSTAGRAM/FACEBOOK ===\n${ig}\n\n=== TIKTOK/YOUTUBE ===\n${video}`;
       
-      // Clear inputs
-      document.getElementById('what').value = '';
-      document.getElementById('why').value = '';
-      document.getElementById('link').value = '';
-      document.getElementById('x-post').value = '';
-      document.getElementById('ig-post').value = '';
-      document.getElementById('video-post').value = '';
-      document.getElementById('x-count').textContent = '0/280';
-      
-      renderArchive();
+      navigator.clipboard.writeText(all).then(() => {
+        showStatus('All posts copied!', 'success');
+      });
     }
-
+    
+    // Render archive
     function renderArchive() {
       const list = document.getElementById('archive-list');
-      list.innerHTML = archives.map((a, i) => `
+      if (archive.length === 0) {
+        list.innerHTML = '<p style="color: #8b949e;">No archived posts yet.</p>';
+        return;
+      }
+      
+      list.innerHTML = archive.map((item, i) => `
         <div class="archive-item">
-          <strong>${a.timestamp}</strong> - ${a.what}
-          <button onclick="loadArchive(${i})">Load</button>
+          <div class="archive-info">
+            <div class="archive-date">${item.archivedDate}</div>
+            <div class="archive-title">${typeLabels[item.type] || 'Post'} - ${item.date}</div>
+          </div>
+          <div class="archive-actions">
+            <button onclick="loadArchive(${i})">Load</button>
+          </div>
         </div>
       `).join('');
     }
-
+    
+    // Load from archive
     function loadArchive(index) {
-      const a = archives[index];
-      document.getElementById('what').value = a.what;
-      document.getElementById('x-post').value = a.x;
-      document.getElementById('ig-post').value = a.ig;
-      document.getElementById('video-post').value = a.video;
-      document.getElementById('x-count').textContent = a.x.length + '/280 chars';
+      const item = archive[index];
+      document.getElementById('campaign-prompt').value = `Reloaded: ${item.date} ${typeLabels[item.type] || ''}`;
+      
+      // Create temp day
+      const tempKey = 'temp-' + Date.now();
+      weekData[tempKey] = { ...item, date: tempKey };
+      openDay(tempKey, new Date());
     }
+    
+    // Update char count
+    function updateCharCount() {
+      const x = document.getElementById('x-post').value;
+      document.getElementById('x-count').textContent = `${x.length}/280`;
+    }
+    
+    document.getElementById('x-post').addEventListener('input', updateCharCount);
+    
+    // Show status
+    function showStatus(msg, type) {
+      const el = document.getElementById('status');
+      el.textContent = msg;
+      el.className = `status-msg ${type} show`;
+      setTimeout(() => el.classList.remove('show'), 3000);
+    }
+    
+    // Load saved week on startup
+    function loadSavedWeek() {
+      const saved = localStorage.getItem('socialWeek');
+      if (saved) {
+        weekData = JSON.parse(saved);
+        initCalendar();
+      }
+    }
+    
+    // Init
+    loadSavedWeek();
+    renderArchive();
+    initCalendar();
   </script>
 </body>
 </html>
