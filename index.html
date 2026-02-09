@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FILM426 Social Poster Pro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
   <style>
@@ -11,6 +14,7 @@
       --bg-deep: #0a0a0f;
       --bg-card: #14141f;
       --bg-input: #1a1a2e;
+      --bg-hover: #1f1f2e;
       --border-subtle: #2a2a3e;
       --border-active: #3a3a4e;
       --accent-cyan: #00d4ff;
@@ -24,11 +28,12 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--bg-deep);
       color: var(--text-secondary);
       min-height: 100vh;
       padding: 20px;
+      line-height: 1.6;
     }
     
     .container { max-width: 1400px; margin: 0 auto; }
@@ -42,13 +47,17 @@
     h1 {
       color: var(--text-primary);
       font-size: 1.75rem;
+      font-weight: 600;
       margin-bottom: 4px;
     }
     
-    .subtitle { color: var(--text-muted); font-size: 0.9375rem; }
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 0.9375rem;
+    }
     
-    /* Campaign Selection */
-    .campaign-section {
+    /* Campaign Section */
+    .section {
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-radius: 12px;
@@ -56,17 +65,17 @@
       margin-bottom: 24px;
     }
     
-    .campaign-section h2 {
+    .section-title {
       color: var(--text-primary);
       font-size: 1.125rem;
+      font-weight: 600;
       margin-bottom: 16px;
       display: flex;
       align-items: center;
       gap: 8px;
     }
     
-    .campaign-section h2::before { content: "📋"; }
-    
+    /* Campaign List */
     .campaign-list {
       display: flex;
       flex-direction: column;
@@ -79,7 +88,7 @@
       border-radius: 10px;
       padding: 16px 20px;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.2s ease;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -96,9 +105,20 @@
       box-shadow: 0 0 20px rgba(0, 212, 255, 0.1);
     }
     
-    .campaign-info h3 {
+    .campaign-item.empty {
+      opacity: 0.4;
+      cursor: default;
+    }
+    
+    .campaign-item.empty:hover {
+      border-color: var(--border-subtle);
+      transform: none;
+    }
+    
+    .campaign-name {
       color: var(--text-primary);
       font-size: 1rem;
+      font-weight: 500;
       margin-bottom: 4px;
     }
     
@@ -107,43 +127,24 @@
       color: var(--text-muted);
     }
     
-    .campaign-status {
+    .campaign-badge {
       font-size: 0.75rem;
       padding: 4px 12px;
       border-radius: 20px;
       font-weight: 600;
     }
     
-    .campaign-status.ready {
+    .campaign-badge.ready {
       background: rgba(0, 200, 83, 0.15);
       color: var(--accent-green);
     }
     
-    .campaign-status.loaded {
+    .campaign-badge.loaded {
       background: rgba(0, 212, 255, 0.15);
       color: var(--accent-cyan);
     }
     
     /* Week Grid */
-    .week-section {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 24px;
-    }
-    
-    .week-section h2 {
-      color: var(--text-primary);
-      font-size: 1.125rem;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    
-    .week-section h2::before { content: "📅"; }
-    
     .week-grid {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
@@ -157,10 +158,10 @@
       padding: 16px;
       min-height: 140px;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.2s ease;
     }
     
-    .day-card:hover {
+    .day-card:hover:not(.empty) {
       border-color: var(--accent-cyan);
       transform: translateY(-2px);
     }
@@ -173,7 +174,6 @@
     
     .day-card.used {
       opacity: 0.5;
-      border-color: var(--border-subtle);
     }
     
     .day-card.empty {
@@ -188,14 +188,14 @@
       letter-spacing: 0.5px;
     }
     
-    .day-date {
+    .day-number {
       font-size: 1.25rem;
       font-weight: 700;
       color: var(--text-primary);
       margin: 4px 0;
     }
     
-    .post-type {
+    .post-type-badge {
       display: inline-block;
       padding: 4px 10px;
       border-radius: 20px;
@@ -205,13 +205,13 @@
       margin-top: 8px;
     }
     
-    .post-type.teaser { background: rgba(255, 171, 0, 0.15); color: #ffab00; }
-    .post-type.announce { background: rgba(255, 107, 53, 0.15); color: var(--accent-orange); }
-    .post-type.release { background: rgba(0, 200, 83, 0.15); color: var(--accent-green); }
-    .post-type.behind { background: rgba(137, 87, 229, 0.15); color: #8957e5; }
-    .post-type.followup { background: rgba(0, 212, 255, 0.15); color: var(--accent-cyan); }
-    .post-type.reminder { background: rgba(160, 160, 176, 0.15); color: var(--text-secondary); }
-    .post-type.poll { background: rgba(163, 113, 247, 0.15); color: #a371f7; }
+    .post-type-badge.teaser { background: rgba(255, 171, 0, 0.15); color: #ffab00; }
+    .post-type-badge.announce { background: rgba(255, 107, 53, 0.15); color: var(--accent-orange); }
+    .post-type-badge.release { background: rgba(0, 200, 83, 0.15); color: var(--accent-green); }
+    .post-type-badge.behind { background: rgba(137, 87, 229, 0.15); color: #8957e5; }
+    .post-type-badge.followup { background: rgba(0, 212, 255, 0.15); color: var(--accent-cyan); }
+    .post-type-badge.reminder { background: rgba(160, 160, 176, 0.15); color: var(--text-secondary); }
+    .post-type-badge.poll { background: rgba(163, 113, 247, 0.15); color: #a371f7; }
     
     .day-status {
       font-size: 0.6875rem;
@@ -220,17 +220,12 @@
       font-weight: 500;
     }
     
-    /* Post Editor */
-    .post-editor {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      padding: 24px;
-      margin-bottom: 24px;
+    /* Editor */
+    .editor {
       display: none;
     }
     
-    .post-editor.active { display: block; }
+    .editor.active { display: block; }
     
     .editor-header {
       display: flex;
@@ -244,6 +239,7 @@
     .editor-title {
       color: var(--text-primary);
       font-size: 1.125rem;
+      font-weight: 600;
     }
     
     .close-btn {
@@ -253,7 +249,8 @@
       border-radius: 6px;
       color: var(--text-secondary);
       cursor: pointer;
-      transition: all 0.2s;
+      font-size: 0.875rem;
+      transition: all 0.2s ease;
     }
     
     .close-btn:hover {
@@ -261,6 +258,7 @@
       color: var(--accent-orange);
     }
     
+    /* Post Boxes */
     .posts-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -295,7 +293,7 @@
       font-size: 0.8125rem;
       line-height: 1.6;
       resize: vertical;
-      transition: all 0.2s;
+      transition: all 0.2s ease;
     }
     
     .post-box textarea:focus {
@@ -310,7 +308,8 @@
       text-align: right;
     }
     
-    .editor-actions {
+    /* Actions */
+    .actions {
       display: flex;
       gap: 12px;
       margin-top: 20px;
@@ -325,7 +324,7 @@
       font-size: 0.875rem;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.2s ease;
     }
     
     .btn-copy {
@@ -350,24 +349,6 @@
     }
     
     /* Archive */
-    .archive-section {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      padding: 20px;
-    }
-    
-    .archive-section h2 {
-      color: var(--text-primary);
-      font-size: 1.125rem;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    
-    .archive-section h2::before { content: "📁"; }
-    
     .archive-list {
       max-height: 300px;
       overflow-y: auto;
@@ -392,6 +373,7 @@
     .archive-title {
       color: var(--text-primary);
       font-weight: 500;
+      font-size: 0.9375rem;
     }
     
     /* Toast */
@@ -405,9 +387,10 @@
       border-left: 3px solid var(--accent-green);
       border-radius: 8px;
       color: var(--text-primary);
+      font-size: 0.9375rem;
       opacity: 0;
       transform: translateY(10px);
-      transition: all 0.3s;
+      transition: all 0.3s ease;
       z-index: 1000;
     }
     
@@ -416,6 +399,7 @@
       transform: translateY(0);
     }
     
+    /* Responsive */
     @media (max-width: 1024px) {
       .week-grid { grid-template-columns: repeat(4, 1fr); }
       .posts-grid { grid-template-columns: 1fr; }
@@ -434,23 +418,21 @@
     </header>
     
     <!-- Campaign Selection -->
-    <div class="campaign-section">
-      <h2>Available Campaigns</h2>
+    <div class="section">
+      <h2 class="section-title">📋 Available Campaigns</h2>
       <div class="campaign-list" id="campaign-list">
-        <p style="color: var(--text-muted);">Loading campaigns...</p>
+        <p style="color: var(--text-muted);">Loading...</p>
       </div>
     </div>
     
     <!-- Week Grid -->
-    <div class="week-section" id="week-section" style="display: none;">
-      <h2 id="week-title">Campaign Posts</h2>
-      <div class="week-grid" id="week-grid">
-        <!-- Days generated by JS -->
-      </div>
+    <div class="section" id="week-section" style="display: none;">
+      <h2 class="section-title" id="week-title">Campaign Posts</h2>
+      <div class="week-grid" id="week-grid"></div>
     </div>
     
     <!-- Post Editor -->
-    <div class="post-editor" id="post-editor">
+    <div class="section editor" id="editor">
       <div class="editor-header">
         <h2 class="editor-title" id="editor-title">Select a day</h2>
         <button class="close-btn" onclick="closeEditor()">Close</button>
@@ -474,15 +456,15 @@
         </div>
       </div>
       
-      <div class="editor-actions">
+      <div class="actions">
         <button class="btn btn-copy" onclick="copyAll()">📋 Copy All</button>
         <button class="btn btn-archive" onclick="archiveDay()">📁 Archive & Clear</button>
       </div>
     </div>
     
     <!-- Archive -->
-    <div class="archive-section">
-      <h2>Archived Posts</h2>
+    <div class="section">
+      <h2 class="section-title">📁 Archived Posts</h2>
       <div class="archive-list" id="archive-list">
         <p style="color: var(--text-muted);">No archived posts yet.</p>
       </div>
@@ -519,7 +501,7 @@
       poll: 'Poll'
     };
     
-    // Init
+    // Initialize
     async function init() {
       try {
         firebase.initializeApp(firebaseConfig);
@@ -527,45 +509,44 @@
         await loadCampaigns();
       } catch(e) {
         console.log('Firebase error, using local:', e);
-        showLocalCampaigns();
+        loadLocalCampaigns();
       }
       renderArchive();
     }
     
-    // Load campaigns from Firebase
+    // Load campaigns
     async function loadCampaigns() {
-      const snapshot = await db.collection('socialCampaigns').get();
-      campaigns = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      
-      if (campaigns.length === 0) {
-        showLocalCampaigns();
-      } else {
+      try {
+        const snapshot = await db.collection('socialCampaigns').get();
+        campaigns = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         renderCampaigns();
+      } catch(e) {
+        loadLocalCampaigns();
       }
     }
     
-    // Show local campaigns (fallback)
-    function showLocalCampaigns() {
-      campaigns = JSON.parse(localStorage.getItem('socialCampaigns') || '[]');
+    // Local campaigns fallback
+    function loadLocalCampaigns() {
+      campaigns = JSON.parse(localStorage.getItem('socialCampaigns') || []);
       renderCampaigns();
     }
     
-    // Render campaign list
+    // Render campaigns
     function renderCampaigns() {
       const list = document.getElementById('campaign-list');
       
       if (campaigns.length === 0) {
-        list.innerHTML = '<p style="color: var(--text-muted);">No campaigns available. Bella will add them.</p>';
+        list.innerHTML = '<p style="color: var(--text-muted);">No campaigns yet. Bella will add them.</p>';
         return;
       }
       
       list.innerHTML = campaigns.map(c => `
         <div class="campaign-item ${currentCampaign?.id === c.id ? 'active' : ''}" onclick="selectCampaign('${c.id}')">
-          <div class="campaign-info">
-            <h3>${c.name}</h3>
-            <div class="campaign-meta">${c.description || '7 posts ready'} • Created ${new Date(c.createdAt).toLocaleDateString()}</div>
+          <div>
+            <div class="campaign-name">${c.name}</div>
+            <div class="campaign-meta">${c.description || '7 posts'} • Created ${new Date(c.createdAt).toLocaleDateString()}</div>
           </div>
-          <div class="campaign-status ${currentCampaign?.id === c.id ? 'loaded' : 'ready'}">
+          <div class="campaign-badge ${currentCampaign?.id === c.id ? 'loaded' : 'ready'}">
             ${currentCampaign?.id === c.id ? '✓ Loaded' : 'Ready'}
           </div>
         </div>
@@ -575,20 +556,19 @@
     // Select campaign
     function selectCampaign(id) {
       currentCampaign = campaigns.find(c => c.id === id);
-      weekData = currentCampaign.posts || {};
+      weekData = currentCampaign?.posts || {};
       
       document.getElementById('week-section').style.display = 'block';
-      document.getElementById('week-title').textContent = currentCampaign.name;
+      document.getElementById('week-title').textContent = currentCampaign?.name || 'Campaign Posts';
       
       renderCampaigns();
-      initWeekGrid();
+      renderWeekGrid();
       
-      // Scroll to week
-      document.getElementById('week-section').scrollIntoView({ behavior: 'smooth' });
+      document.getElementById('week-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
     
     // Render week grid
-    function initWeekGrid() {
+    function renderWeekGrid() {
       const grid = document.getElementById('week-grid');
       grid.innerHTML = '';
       
@@ -597,7 +577,6 @@
       for (let i = 0; i < 7; i++) {
         const date = new Date(today);
         date.setDate(today.getDate() + i);
-        
         const dayKey = date.toISOString().split('T')[0];
         const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
         const dayNum = date.getDate();
@@ -607,15 +586,15 @@
         const isUsed = dayData.used;
         
         const card = document.createElement('div');
-        card.className = `day-card ${hasContent ? '' : 'empty'} ${isUsed ? 'used' : ''}`;
+        card.className = `day-card ${isUsed ? 'used' : ''} ${hasContent ? '' : 'empty'}`;
         if (hasContent) {
           card.onclick = () => selectDay(dayKey, date);
         }
         
         card.innerHTML = `
           <div class="day-name">${dayName}</div>
-          <div class="day-date">${dayNum}</div>
-          ${dayData.type ? `<span class="post-type ${dayData.type}">${typeLabels[dayData.type]}</span>` : ''}
+          <div class="day-number">${dayNum}</div>
+          ${dayData.type ? `<span class="post-type-badge ${dayData.type}">${typeLabels[dayData.type]}</span>` : ''}
           ${hasContent ? '<div class="day-status">✓ Ready</div>' : ''}
         `;
         
@@ -637,13 +616,13 @@
       document.getElementById('video-post').value = dayData.video || '';
       
       updateCharCount();
-      document.getElementById('post-editor').classList.add('active');
-      document.getElementById('post-editor').scrollIntoView({ behavior: 'smooth' });
+      document.getElementById('editor').classList.add('active');
+      document.getElementById('editor').scrollIntoView({ behavior: 'smooth' });
     }
     
     // Close editor
     function closeEditor() {
-      document.getElementById('post-editor').classList.remove('active');
+      document.getElementById('editor').classList.remove('active');
       currentDay = null;
     }
     
@@ -674,7 +653,7 @@
       
       weekData[currentDay].used = true;
       closeEditor();
-      initWeekGrid();
+      renderWeekGrid();
       renderArchive();
       showToast('Archived!');
     }
@@ -705,7 +684,7 @@
     
     document.getElementById('x-post').addEventListener('input', updateCharCount);
     
-    // Show toast
+    // Toast
     function showToast(msg) {
       const toast = document.getElementById('toast');
       toast.textContent = msg;
