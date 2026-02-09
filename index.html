@@ -622,6 +622,13 @@
       }
     }
     
+    // Helper: Fix escaped newlines
+    function fixNewlines(text) {
+      if (!text) return '';
+      // Convert literal \n to real newlines
+      return text.replace(/\\n/g, '\n').replace(/\\n/g, '\n');
+    }
+    
     // Select day
     function selectDay(dayKey, dateObj) {
       currentDay = dayKey;
@@ -631,9 +638,9 @@
         `${dateObj.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}` +
         (dayData.type ? ` — ${typeLabels[dayData.type]}` : '');
       
-      document.getElementById('x-post').value = dayData.x || '';
-      document.getElementById('ig-post').value = dayData.ig || '';
-      document.getElementById('video-post').value = dayData.video || '';
+      document.getElementById('x-post').value = fixNewlines(dayData.x) || '';
+      document.getElementById('ig-post').value = fixNewlines(dayData.ig) || '';
+      document.getElementById('video-post').value = fixNewlines(dayData.video) || '';
       
       updateCharCount();
       document.getElementById('editor').classList.add('active');
