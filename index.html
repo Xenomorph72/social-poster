@@ -4,12 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FILM426 Social Poster Pro</title>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
   <style>
     :root {
       --bg-deep: #0a0a0f;
       --bg-card: #14141f;
       --bg-input: #1a1a2e;
-      --bg-hover: #1f1f2e;
       --border-subtle: #2a2a3e;
       --border-active: #3a3a4e;
       --accent-cyan: #00d4ff;
@@ -46,8 +47,8 @@
     
     .subtitle { color: var(--text-muted); font-size: 0.9375rem; }
     
-    /* Weekly Campaign Input */
-    .campaign-input {
+    /* Campaign Selection */
+    .campaign-section {
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-radius: 12px;
@@ -55,53 +56,7 @@
       margin-bottom: 24px;
     }
     
-    .campaign-input input {
-      width: 100%;
-      padding: 14px 16px;
-      background: var(--bg-input);
-      border: 1px solid var(--border-subtle);
-      border-radius: 8px;
-      color: var(--text-primary);
-      font-size: 0.9375rem;
-      transition: all 0.2s;
-    }
-    
-    .campaign-input input:focus {
-      outline: none;
-      border-color: var(--accent-cyan);
-      box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
-    }
-    
-    .campaign-input input::placeholder { color: var(--text-muted); }
-    
-    .generate-btn {
-      margin-top: 12px;
-      padding: 12px 28px;
-      background: var(--accent-cyan);
-      border: none;
-      border-radius: 8px;
-      color: var(--bg-deep);
-      font-size: 0.9375rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    
-    .generate-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
-    }
-    
-    /* Future Posts Section */
-    .future-posts {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 24px;
-    }
-    
-    .future-posts h2 {
+    .campaign-section h2 {
       color: var(--text-primary);
       font-size: 1.125rem;
       margin-bottom: 16px;
@@ -110,9 +65,84 @@
       gap: 8px;
     }
     
-    .future-posts h2::before {
-      content: "📅";
+    .campaign-section h2::before { content: "📋"; }
+    
+    .campaign-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
+    
+    .campaign-item {
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 16px 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .campaign-item:hover {
+      border-color: var(--accent-cyan);
+      transform: translateX(4px);
+    }
+    
+    .campaign-item.active {
+      border-color: var(--accent-cyan);
+      background: rgba(0, 212, 255, 0.05);
+      box-shadow: 0 0 20px rgba(0, 212, 255, 0.1);
+    }
+    
+    .campaign-info h3 {
+      color: var(--text-primary);
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+    
+    .campaign-meta {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+    
+    .campaign-status {
+      font-size: 0.75rem;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+    
+    .campaign-status.ready {
+      background: rgba(0, 200, 83, 0.15);
+      color: var(--accent-green);
+    }
+    
+    .campaign-status.loaded {
+      background: rgba(0, 212, 255, 0.15);
+      color: var(--accent-cyan);
+    }
+    
+    /* Week Grid */
+    .week-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+    
+    .week-section h2 {
+      color: var(--text-primary);
+      font-size: 1.125rem;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .week-section h2::before { content: "📅"; }
     
     .week-grid {
       display: grid;
@@ -144,6 +174,11 @@
     .day-card.used {
       opacity: 0.5;
       border-color: var(--border-subtle);
+    }
+    
+    .day-card.empty {
+      opacity: 0.3;
+      cursor: not-allowed;
     }
     
     .day-name {
@@ -226,7 +261,6 @@
       color: var(--accent-orange);
     }
     
-    /* Post Boxes */
     .posts-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -276,7 +310,6 @@
       text-align: right;
     }
     
-    /* Action Buttons */
     .editor-actions {
       display: flex;
       gap: 12px;
@@ -316,7 +349,7 @@
       box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
     }
     
-    /* Archive Section */
+    /* Archive */
     .archive-section {
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
@@ -333,9 +366,7 @@
       gap: 8px;
     }
     
-    .archive-section h2::before {
-      content: "📁";
-    }
+    .archive-section h2::before { content: "📁"; }
     
     .archive-list {
       max-height: 300px;
@@ -351,11 +382,6 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      transition: all 0.2s;
-    }
-    
-    .archive-item:hover {
-      border-color: var(--border-active);
     }
     
     .archive-meta {
@@ -366,18 +392,6 @@
     .archive-title {
       color: var(--text-primary);
       font-weight: 500;
-      font-size: 0.9375rem;
-    }
-    
-    .archive-btn {
-      padding: 6px 14px;
-      background: var(--accent-cyan);
-      border: none;
-      border-radius: 6px;
-      color: var(--bg-deep);
-      font-size: 0.75rem;
-      font-weight: 600;
-      cursor: pointer;
     }
     
     /* Toast */
@@ -391,7 +405,6 @@
       border-left: 3px solid var(--accent-green);
       border-radius: 8px;
       color: var(--text-primary);
-      font-size: 0.9375rem;
       opacity: 0;
       transform: translateY(10px);
       transition: all 0.3s;
@@ -403,7 +416,6 @@
       transform: translateY(0);
     }
     
-    /* Responsive */
     @media (max-width: 1024px) {
       .week-grid { grid-template-columns: repeat(4, 1fr); }
       .posts-grid { grid-template-columns: 1fr; }
@@ -418,27 +430,29 @@
   <div class="container">
     <header>
       <h1>🎵 FILM426 Social Poster Pro</h1>
-      <p class="subtitle">Weekly Campaign Manager</p>
+      <p class="subtitle">Campaign Manager</p>
     </header>
     
-    <!-- Campaign Input -->
-    <div class="campaign-input">
-      <input type="text" id="campaign-prompt" placeholder="e.g., Create this week's posts for promoting THE FINE PRINT album release">
-      <button class="generate-btn" onclick="generateWeek()">🎯 Generate Week</button>
+    <!-- Campaign Selection -->
+    <div class="campaign-section">
+      <h2>Available Campaigns</h2>
+      <div class="campaign-list" id="campaign-list">
+        <p style="color: var(--text-muted);">Loading campaigns...</p>
+      </div>
     </div>
     
-    <!-- Future Posts (Weekly View) -->
-    <div class="future-posts">
-      <h2>Upcoming Posts</h2>
+    <!-- Week Grid -->
+    <div class="week-section" id="week-section" style="display: none;">
+      <h2 id="week-title">Campaign Posts</h2>
       <div class="week-grid" id="week-grid">
         <!-- Days generated by JS -->
       </div>
     </div>
     
-    <!-- Post Editor (Hidden until day selected) -->
+    <!-- Post Editor -->
     <div class="post-editor" id="post-editor">
       <div class="editor-header">
-        <h2 class="editor-title" id="editor-title">Select a day to edit</h2>
+        <h2 class="editor-title" id="editor-title">Select a day</h2>
         <button class="close-btn" onclick="closeEditor()">Close</button>
       </div>
       
@@ -478,12 +492,23 @@
   <div class="toast" id="toast"></div>
   
   <script>
-    // Data storage
-    let weekData = {};
+    // Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyCPwmu7TwiF4j2DatPa1TjK8QF4YSHE",
+      authDomain: "dash-clawd.firebaseapp.com",
+      projectId: "dash-clawd",
+      storageBucket: "dash-clawd.appspot.com",
+      messagingSenderId: "123456789",
+      appId: "1:123456789:web:xxxxxxxxxxxxxxxx"
+    };
+    
+    let db;
+    let campaigns = [];
+    let currentCampaign = null;
     let currentDay = null;
+    let weekData = {};
     let archive = JSON.parse(localStorage.getItem('socialArchive') || '[]');
     
-    const postTypes = ['teaser', 'behind', 'announce', 'release', 'followup', 'reminder', 'poll'];
     const typeLabels = {
       teaser: 'Teaser',
       behind: 'Behind',
@@ -494,17 +519,79 @@
       poll: 'Poll'
     };
     
-    // Initialize
-    function init() {
-      loadSavedWeek();
+    // Init
+    async function init() {
+      try {
+        firebase.initializeApp(firebaseConfig);
+        db = firebase.firestore();
+        await loadCampaigns();
+      } catch(e) {
+        console.log('Firebase error, using local:', e);
+        showLocalCampaigns();
+      }
       renderArchive();
-      initWeekGrid();
     }
     
-    // Generate week grid
+    // Load campaigns from Firebase
+    async function loadCampaigns() {
+      const snapshot = await db.collection('socialCampaigns').get();
+      campaigns = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      
+      if (campaigns.length === 0) {
+        showLocalCampaigns();
+      } else {
+        renderCampaigns();
+      }
+    }
+    
+    // Show local campaigns (fallback)
+    function showLocalCampaigns() {
+      campaigns = JSON.parse(localStorage.getItem('socialCampaigns') || '[]');
+      renderCampaigns();
+    }
+    
+    // Render campaign list
+    function renderCampaigns() {
+      const list = document.getElementById('campaign-list');
+      
+      if (campaigns.length === 0) {
+        list.innerHTML = '<p style="color: var(--text-muted);">No campaigns available. Bella will add them.</p>';
+        return;
+      }
+      
+      list.innerHTML = campaigns.map(c => `
+        <div class="campaign-item ${currentCampaign?.id === c.id ? 'active' : ''}" onclick="selectCampaign('${c.id}')">
+          <div class="campaign-info">
+            <h3>${c.name}</h3>
+            <div class="campaign-meta">${c.description || '7 posts ready'} • Created ${new Date(c.createdAt).toLocaleDateString()}</div>
+          </div>
+          <div class="campaign-status ${currentCampaign?.id === c.id ? 'loaded' : 'ready'}">
+            ${currentCampaign?.id === c.id ? '✓ Loaded' : 'Ready'}
+          </div>
+        </div>
+      `).join('');
+    }
+    
+    // Select campaign
+    function selectCampaign(id) {
+      currentCampaign = campaigns.find(c => c.id === id);
+      weekData = currentCampaign.posts || {};
+      
+      document.getElementById('week-section').style.display = 'block';
+      document.getElementById('week-title').textContent = currentCampaign.name;
+      
+      renderCampaigns();
+      initWeekGrid();
+      
+      // Scroll to week
+      document.getElementById('week-section').scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    // Render week grid
     function initWeekGrid() {
       const grid = document.getElementById('week-grid');
       grid.innerHTML = '';
+      
       const today = new Date();
       
       for (let i = 0; i < 7; i++) {
@@ -520,8 +607,10 @@
         const isUsed = dayData.used;
         
         const card = document.createElement('div');
-        card.className = `day-card ${hasContent ? 'active' : ''} ${isUsed ? 'used' : ''}`;
-        card.onclick = () => selectDay(dayKey, date);
+        card.className = `day-card ${hasContent ? '' : 'empty'} ${isUsed ? 'used' : ''}`;
+        if (hasContent) {
+          card.onclick = () => selectDay(dayKey, date);
+        }
         
         card.innerHTML = `
           <div class="day-name">${dayName}</div>
@@ -534,54 +623,7 @@
       }
     }
     
-    // Generate week of posts
-    function generateWeek() {
-      const prompt = document.getElementById('campaign-prompt').value.trim();
-      if (!prompt) {
-        showToast('Enter a campaign prompt first');
-        return;
-      }
-      
-      const what = prompt.replace(/create.*posts.*for/i, '').trim() || 'THE FINE PRINT album';
-      const templates = getTemplates(what);
-      
-      const today = new Date();
-      weekData = {};
-      
-      for (let i = 0; i < 7; i++) {
-        const date = new Date(today);
-        date.setDate(today.getDate() + i);
-        const dayKey = date.toISOString().split('T')[0];
-        
-        weekData[dayKey] = {
-          date: dayKey,
-          type: templates[i].type,
-          x: templates[i].x,
-          ig: templates[i].ig,
-          video: templates[i].video,
-          used: false
-        };
-      }
-      
-      localStorage.setItem('socialWeek', JSON.stringify(weekData));
-      initWeekGrid();
-      showToast('Week generated! Click any day to edit.');
-    }
-    
-    // Get templates
-    function getTemplates(what) {
-      return [
-        { type: 'teaser', x: `👀 Something's coming...\n\n${what}\n\nCan you feel it? ✨\n\n#FILM426 #ComingSoon`, ig: `👀 SOMETHING'S COMING 👀\n\n${what}\n\nThe countdown begins...\n\nWhat do you think is dropping? 👇\n\n.#FILM426 #ComingSoon #NewMusic`, video: `HOOK: "Wait for it..."\nVISUAL: Mysterious album art reveal\nTEXT: "Something drops soon"\nCTA: "Follow to be first to know"` },
-        { type: 'behind', x: `🎬 Behind the scenes:\n\nMaking ${what}\n\nThe late nights. The coffee. The chaos.\n\nIt's all worth it. 🖤\n\n#FILM426 #BehindTheMusic`, ig: `🎬 BEHIND THE SCENES 🎬\n\n${what}\n\nSwipe to see the process →\n\nLate nights. Cold coffee. Pure magic.\n\nWhich track are you most excited for? 👇\n\n.#FILM426 #BTS #StudioLife #Producer`, video: `HOOK: "This is how it's made..."\nB-ROLL: Studio footage, synths, mixing\nVOICEOVER: "Every sound has a story"\nCTA: "Full album drops soon - link in bio"` },
-        { type: 'announce', x: `📢 IT'S HERE!\n\n${what} is officially OUT NOW! 🚀\n\nStream it everywhere:\n[LINK]\n\nLet me know your favorite track! 🖤\n\n#NewMusic #FILM426 #NowPlaying`, ig: `📢 IT'S HERE! 📢\n\n${what}\n\n🚀 OFFICIALLY OUT NOW 🚀\n\nThis one's been months in the making.\nEvery track is a piece of my soul.\n\nLink in bio to stream!\n\nWhat's your vibe today? Drop a 🖤 if you're listening!\n\n.#NewMusic #FILM426 #OutNow #ElectronicMusic #Synthwave`, video: `HOOK (0-3s): "IT'S HERE!"\nDROP (3-15s): [Best drop from album]\nTEXT OVERLAY: "${what} - OUT NOW"\nCTA (15-30s): "Stream link in bio! Which track hits different?"` },
-        { type: 'release', x: `🚀 ${what}\n\nDay 1 has been INSANE.\n\nThank you to everyone streaming, sharing, vibing.\n\nThis is just the beginning. 🖤\n\n#FILM426 #Grateful`, ig: `🚀 RELEASE DAY ENERGY 🚀\n\n${what}\n\nDay 1 has been absolutely WILD.\n\nTo everyone streaming, sharing, commenting -\nyou're the reason I do this.\n\nKeep the vibes going! Link in bio 🖤\n\n.#FILM426 #ReleaseDay #Grateful #NewMusic`, video: `HOOK: "Day 1 recap..."\nMONTAGE: Stream counts, comments, reactions\nTEXT: "You did this"\nCTA: "Keep streaming - link in bio"` },
-        { type: 'followup', x: `💬 Quick question:\n\nWhat's your favorite track from ${what}?\n\nMine changes daily 😅\n\nDrop yours below! 👇\n\n#FILM426 #MusicTalk`, ig: `💬 REAL TALK 💬\n\n${what}\n\nWhat's your CURRENT favorite track?\n\nMine keeps changing depending on my mood.\n\nDrop yours below + tell me WHY 👇\n\n.#FILM426 #MusicTalk #FavoriteTrack #Playlist`, video: `HOOK: "I need to know..."\nTEXT: "Favorite track?"\nSHOW: Track list with polls\nCTA: "Comment your pick!"` },
-        { type: 'reminder', x: `⏰ Weekend reminder:\n\nIf you haven't checked out ${what} yet...\n\nWhat are you waiting for? 😏\n\n[LINK]\n\n#FILM426 #WeekendVibes`, ig: `⏰ WEEKEND REMINDER ⏰\n\n${what}\n\nStill haven't hit play?\n\nPerfect weekend soundtrack right here ↓\n\nLink in bio 🎧\n\n.#FILM426 #WeekendVibes #NewMusic #Playlist`, video: `HOOK: "Weekend soundtrack..."\nPLAY: Best chill track\nTEXT: "${what}"\nCTA: "Link in bio - perfect weekend vibes"` },
-        { type: 'poll', x: `📊 This or That:\n\n${what} tracks:\n\nSide A (tracks 1-7)\nOR\nSide B (tracks 8-15)?\n\nI'm Team [PICK] 🖤\n\n#FILM426 #Poll`, ig: `📊 THIS OR THAT 📊\n\n${what}\n\nSide A (tracks 1-7)\nvs\nSide B (tracks 8-15)\n\nWhich side hits harder?\n\nVote in the poll! 👇\n\n.#FILM426 #ThisOrThat #MusicPoll`, video: `SPLIT SCREEN: Side A vs Side B\nTEXT: "Which side?"\nPOLL STICKER: Side A / Side B\nCTA: "Vote now!"` }
-      ];
-    }
-    
-    // Select day to edit
+    // Select day
     function selectDay(dayKey, dateObj) {
       currentDay = dayKey;
       const dayData = weekData[dayKey] || {};
@@ -596,25 +638,16 @@
       
       updateCharCount();
       document.getElementById('post-editor').classList.add('active');
-      
-      // Scroll to editor
-      document.getElementById('post-editor').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.getElementById('post-editor').scrollIntoView({ behavior: 'smooth' });
     }
     
     // Close editor
     function closeEditor() {
-      if (currentDay && weekData[currentDay]) {
-        weekData[currentDay].x = document.getElementById('x-post').value;
-        weekData[currentDay].ig = document.getElementById('ig-post').value;
-        weekData[currentDay].video = document.getElementById('video-post').value;
-        localStorage.setItem('socialWeek', JSON.stringify(weekData));
-      }
       document.getElementById('post-editor').classList.remove('active');
       currentDay = null;
-      initWeekGrid();
     }
     
-    // Copy all posts
+    // Copy all
     function copyAll() {
       const x = document.getElementById('x-post').value;
       const ig = document.getElementById('ig-post').value;
@@ -623,30 +656,27 @@
       const all = `=== X/THREADS ===\n${x}\n\n=== INSTAGRAM/FACEBOOK ===\n${ig}\n\n=== TIKTOK/YOUTUBE ===\n${video}`;
       
       navigator.clipboard.writeText(all).then(() => {
-        showToast('All posts copied to clipboard!');
+        showToast('Copied to clipboard!');
       });
     }
     
     // Archive day
     function archiveDay() {
-      if (!currentDay || !weekData[currentDay]) return;
+      if (!currentDay) return;
       
-      const dayData = weekData[currentDay];
       archive.unshift({
-        ...dayData,
+        ...weekData[currentDay],
         archivedAt: new Date().toISOString(),
         archivedDate: new Date().toLocaleDateString()
       });
       
       localStorage.setItem('socialArchive', JSON.stringify(archive));
       
-      // Clear day
-      weekData[currentDay] = { ...weekData[currentDay], x: '', ig: '', video: '', used: true };
-      localStorage.setItem('socialWeek', JSON.stringify(weekData));
-      
+      weekData[currentDay].used = true;
       closeEditor();
+      initWeekGrid();
       renderArchive();
-      showToast('Day archived!');
+      showToast('Archived!');
     }
     
     // Render archive
@@ -657,23 +687,14 @@
         return;
       }
       
-      list.innerHTML = archive.map((item, i) => `
+      list.innerHTML = archive.map(item => `
         <div class="archive-item">
           <div>
             <div class="archive-meta">${item.archivedDate}</div>
             <div class="archive-title">${typeLabels[item.type] || 'Post'}</div>
           </div>
-          <button class="archive-btn" onclick="loadArchive(${i})">Load</button>
         </div>
       `).join('');
-    }
-    
-    // Load from archive
-    function loadArchive(index) {
-      const item = archive[index];
-      const tempKey = 'temp-' + Date.now();
-      weekData[tempKey] = { ...item, date: tempKey };
-      selectDay(tempKey, new Date());
     }
     
     // Update char count
@@ -690,12 +711,6 @@
       toast.textContent = msg;
       toast.classList.add('show');
       setTimeout(() => toast.classList.remove('show'), 3000);
-    }
-    
-    // Load saved data
-    function loadSavedWeek() {
-      const saved = localStorage.getItem('socialWeek');
-      if (saved) weekData = JSON.parse(saved);
     }
     
     // Init
