@@ -1,306 +1,510 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FILM426 Social Poster Pro</title>
   <style>
-    * { box-sizing: border-box; }
-    body { 
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial; 
-      max-width: 1400px; 
-      margin: 0 auto; 
-      padding: 20px; 
-      background: #0d1117; 
-      color: #c9d1d9; 
+    :root {
+      --bg-deep: #0a0a0f;
+      --bg-card: #14141f;
+      --bg-input: #1a1a2e;
+      --bg-hover: #1f1f2e;
+      --border-subtle: #2a2a3e;
+      --border-active: #3a3a4e;
+      --accent-cyan: #00d4ff;
+      --accent-orange: #ff6b35;
+      --accent-green: #00c853;
+      --text-primary: #ffffff;
+      --text-secondary: #a0a0b0;
+      --text-muted: #606070;
     }
-    h1 { color: #58a6ff; margin-bottom: 5px; }
-    .subtitle { color: #8b949e; margin-bottom: 20px; }
     
-    .week-generator {
-      background: #161b22;
-      border: 1px solid #30363d;
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg-deep);
+      color: var(--text-secondary);
+      min-height: 100vh;
       padding: 20px;
-      border-radius: 12px;
-      margin-bottom: 20px;
     }
-    .week-generator input {
-      width: 100%;
-      padding: 12px;
-      background: #0d1117;
-      border: 1px solid #30363d;
-      color: #c9d1d9;
-      border-radius: 6px;
-      font-size: 14px;
-    }
-    .week-generator button {
-      margin-top: 10px;
-      background: #238636;
-      color: white;
-      padding: 12px 24px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 14px;
-    }
-    .week-generator button:hover { background: #2ea043; }
     
-    .calendar-grid {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 10px;
-      margin-bottom: 20px;
+    .container { max-width: 1400px; margin: 0 auto; }
+    
+    header {
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-subtle);
     }
-    .day-card {
-      background: #161b22;
-      border: 2px solid #30363d;
-      border-radius: 10px;
-      padding: 15px;
-      min-height: 120px;
+    
+    h1 {
+      color: var(--text-primary);
+      font-size: 1.75rem;
+      margin-bottom: 4px;
+    }
+    
+    .subtitle { color: var(--text-muted); font-size: 0.9375rem; }
+    
+    /* Weekly Campaign Input */
+    .campaign-input {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+    
+    .campaign-input input {
+      width: 100%;
+      padding: 14px 16px;
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      color: var(--text-primary);
+      font-size: 0.9375rem;
+      transition: all 0.2s;
+    }
+    
+    .campaign-input input:focus {
+      outline: none;
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+    }
+    
+    .campaign-input input::placeholder { color: var(--text-muted); }
+    
+    .generate-btn {
+      margin-top: 12px;
+      padding: 12px 28px;
+      background: var(--accent-cyan);
+      border: none;
+      border-radius: 8px;
+      color: var(--bg-deep);
+      font-size: 0.9375rem;
+      font-weight: 600;
       cursor: pointer;
       transition: all 0.2s;
     }
-    .day-card:hover { border-color: #58a6ff; }
-    .day-card.active { border-color: #238636; background: #0d1117; }
-    .day-card.used { border-color: #8b949e; opacity: 0.6; }
-    .day-name { font-size: 12px; color: #8b949e; text-transform: uppercase; }
-    .day-date { font-size: 14px; font-weight: bold; color: #c9d1d9; margin: 5px 0; }
-    .post-type { 
-      display: inline-block;
-      padding: 3px 8px;
-      border-radius: 12px;
-      font-size: 11px;
-      margin-top: 5px;
-    }
-    .post-type.announce { background: #da3633; color: white; }
-    .post-type.teaser { background: #f0883e; color: black; }
-    .post-type.behind { background: #8957e5; color: white; }
-    .post-type.release { background: #238636; color: white; }
-    .post-type.followup { background: #1f6feb; color: white; }
-    .post-type.reminder { background: #8b949e; color: black; }
-    .post-type.poll { background: #a371f7; color: white; }
     
-    .editor {
-      background: #161b22;
-      border: 1px solid #30363d;
-      padding: 20px;
+    .generate-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+    }
+    
+    /* Future Posts Section */
+    .future-posts {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
       border-radius: 12px;
-      margin-bottom: 20px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+    
+    .future-posts h2 {
+      color: var(--text-primary);
+      font-size: 1.125rem;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .future-posts h2::before {
+      content: "📅";
+    }
+    
+    .week-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 12px;
+    }
+    
+    .day-card {
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 16px;
+      min-height: 140px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .day-card:hover {
+      border-color: var(--accent-cyan);
+      transform: translateY(-2px);
+    }
+    
+    .day-card.active {
+      border-color: var(--accent-cyan);
+      background: rgba(0, 212, 255, 0.05);
+      box-shadow: 0 0 20px rgba(0, 212, 255, 0.15);
+    }
+    
+    .day-card.used {
+      opacity: 0.5;
+      border-color: var(--border-subtle);
+    }
+    
+    .day-name {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .day-date {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 4px 0;
+    }
+    
+    .post-type {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-top: 8px;
+    }
+    
+    .post-type.teaser { background: rgba(255, 171, 0, 0.15); color: #ffab00; }
+    .post-type.announce { background: rgba(255, 107, 53, 0.15); color: var(--accent-orange); }
+    .post-type.release { background: rgba(0, 200, 83, 0.15); color: var(--accent-green); }
+    .post-type.behind { background: rgba(137, 87, 229, 0.15); color: #8957e5; }
+    .post-type.followup { background: rgba(0, 212, 255, 0.15); color: var(--accent-cyan); }
+    .post-type.reminder { background: rgba(160, 160, 176, 0.15); color: var(--text-secondary); }
+    .post-type.poll { background: rgba(163, 113, 247, 0.15); color: #a371f7; }
+    
+    .day-status {
+      font-size: 0.6875rem;
+      color: var(--accent-cyan);
+      margin-top: 8px;
+      font-weight: 500;
+    }
+    
+    /* Post Editor */
+    .post-editor {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
       display: none;
     }
-    .editor.active { display: block; }
+    
+    .post-editor.active { display: block; }
+    
     .editor-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-subtle);
     }
-    .editor h2 { margin: 0; color: #58a6ff; }
+    
+    .editor-title {
+      color: var(--text-primary);
+      font-size: 1.125rem;
+    }
+    
     .close-btn {
-      background: #da3633;
-      color: white;
-      border: none;
       padding: 8px 16px;
+      background: transparent;
+      border: 1px solid var(--border-subtle);
       border-radius: 6px;
+      color: var(--text-secondary);
       cursor: pointer;
+      transition: all 0.2s;
     }
     
-    .posts-section {
+    .close-btn:hover {
+      border-color: var(--accent-orange);
+      color: var(--accent-orange);
+    }
+    
+    /* Post Boxes */
+    .posts-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 15px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
     }
-    .post-box {
-      background: #0d1117;
-      border: 1px solid #30363d;
-      padding: 15px;
-      border-radius: 8px;
-    }
-    .post-box h3 { margin-top: 0; color: #58a6ff; font-size: 14px; }
-    textarea {
-      width: 100%;
-      height: 180px;
-      background: #010409;
-      border: 1px solid #30363d;
-      color: #c9d1d9;
-      padding: 10px;
-      font-family: monospace;
-      font-size: 13px;
-      border-radius: 6px;
-      resize: vertical;
-    }
-    .char-count { color: #8b949e; font-size: 11px; margin-top: 5px; }
-    .action-btns {
-      margin-top: 15px;
-      display: flex;
-      gap: 10px;
-    }
-    .action-btns button {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 13px;
-    }
-    .copy-btn { background: #6e7681; color: white; }
-    .copy-btn:hover { background: #8b949e; }
-    .archive-btn { background: #238636; color: white; }
-    .archive-btn:hover { background: #2ea043; }
     
-    .archive-section {
-      background: #161b22;
-      border: 1px solid #30363d;
-      padding: 20px;
-      border-radius: 12px;
+    .post-box {
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 16px;
     }
-    .archive-section h2 { margin-top: 0; color: #58a6ff; }
+    
+    .post-box h3 {
+      color: var(--accent-cyan);
+      font-size: 0.875rem;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .post-box textarea {
+      width: 100%;
+      height: 200px;
+      padding: 12px;
+      background: var(--bg-deep);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      color: var(--text-primary);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8125rem;
+      line-height: 1.6;
+      resize: vertical;
+      transition: all 0.2s;
+    }
+    
+    .post-box textarea:focus {
+      outline: none;
+      border-color: var(--accent-cyan);
+    }
+    
+    .char-count {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 8px;
+      text-align: right;
+    }
+    
+    /* Action Buttons */
+    .editor-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-subtle);
+    }
+    
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .btn-copy {
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+    }
+    
+    .btn-copy:hover {
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+    }
+    
+    .btn-archive {
+      background: var(--accent-orange);
+      color: white;
+    }
+    
+    .btn-archive:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
+    }
+    
+    /* Archive Section */
+    .archive-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    
+    .archive-section h2 {
+      color: var(--text-primary);
+      font-size: 1.125rem;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .archive-section h2::before {
+      content: "📁";
+    }
+    
     .archive-list {
       max-height: 300px;
       overflow-y: auto;
     }
+    
     .archive-item {
-      background: #0d1117;
-      border: 1px solid #30363d;
-      padding: 12px;
-      margin: 8px 0;
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
       border-radius: 8px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      transition: all 0.2s;
     }
-    .archive-item:hover { border-color: #58a6ff; }
-    .archive-info { flex: 1; }
-    .archive-date { font-size: 12px; color: #8b949e; }
-    .archive-title { font-weight: bold; color: #c9d1d9; }
-    .archive-actions button {
-      background: #1f6feb;
-      color: white;
+    
+    .archive-item:hover {
+      border-color: var(--border-active);
+    }
+    
+    .archive-meta {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    
+    .archive-title {
+      color: var(--text-primary);
+      font-weight: 500;
+      font-size: 0.9375rem;
+    }
+    
+    .archive-btn {
+      padding: 6px 14px;
+      background: var(--accent-cyan);
       border: none;
-      padding: 6px 12px;
-      border-radius: 4px;
+      border-radius: 6px;
+      color: var(--bg-deep);
+      font-size: 0.75rem;
+      font-weight: 600;
       cursor: pointer;
-      font-size: 12px;
-      margin-left: 5px;
     }
     
-    .loading {
-      display: none;
-      text-align: center;
-      padding: 20px;
-      color: #8b949e;
-    }
-    .loading.active { display: block; }
-    
-    .status-msg {
+    /* Toast */
+    .toast {
       position: fixed;
       bottom: 20px;
       right: 20px;
-      padding: 12px 20px;
+      padding: 14px 24px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-left: 3px solid var(--accent-green);
       border-radius: 8px;
-      color: white;
-      font-size: 14px;
+      color: var(--text-primary);
+      font-size: 0.9375rem;
       opacity: 0;
-      transition: opacity 0.3s;
+      transform: translateY(10px);
+      transition: all 0.3s;
       z-index: 1000;
     }
-    .status-msg.show { opacity: 1; }
-    .status-msg.success { background: #238636; }
-    .status-msg.error { background: #da3633; }
+    
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .week-grid { grid-template-columns: repeat(4, 1fr); }
+      .posts-grid { grid-template-columns: 1fr; }
+    }
+    
+    @media (max-width: 768px) {
+      .week-grid { grid-template-columns: repeat(2, 1fr); }
+    }
   </style>
 </head>
 <body>
-  <h1>🎵 FILM426 Social Poster Pro</h1>
-  <div class="subtitle">Weekly Campaign Manager</div>
-  
-  <div class="week-generator">
-    <input type="text" id="campaign-prompt" placeholder="e.g., Create this week's posts for promoting THE FINE PRINT album release">
-    <button onclick="generateWeek()">🎯 Generate Week</button>
-  </div>
-  
-  <div class="loading" id="loading">
-    <p>Generating posts with AI...</p>
-  </div>
-  
-  <div class="calendar-grid" id="calendar">
-    <!-- Days generated by JS -->
-  </div>
-  
-  <div class="editor" id="editor">
-    <div class="editor-header">
-      <h2 id="editor-title">Day 1 - Announce</h2>
-      <button class="close-btn" onclick="closeEditor()">✕ Close</button>
+  <div class="container">
+    <header>
+      <h1>🎵 FILM426 Social Poster Pro</h1>
+      <p class="subtitle">Weekly Campaign Manager</p>
+    </header>
+    
+    <!-- Campaign Input -->
+    <div class="campaign-input">
+      <input type="text" id="campaign-prompt" placeholder="e.g., Create this week's posts for promoting THE FINE PRINT album release">
+      <button class="generate-btn" onclick="generateWeek()">🎯 Generate Week</button>
     </div>
-    <div class="posts-section">
-      <div class="post-box">
-        <h3>X / Threads</h3>
-        <textarea id="x-post" placeholder="X/Threads post..."></textarea>
-        <div class="char-count" id="x-count">0/280</div>
-      </div>
-      <div class="post-box">
-        <h3>Instagram / Facebook</h3>
-        <textarea id="ig-post" placeholder="Instagram/Facebook post..."></textarea>
-      </div>
-      <div class="post-box">
-        <h3>TikTok / YouTube Shorts</h3>
-        <textarea id="video-post" placeholder="TikTok/YouTube script..."></textarea>
+    
+    <!-- Future Posts (Weekly View) -->
+    <div class="future-posts">
+      <h2>Upcoming Posts</h2>
+      <div class="week-grid" id="week-grid">
+        <!-- Days generated by JS -->
       </div>
     </div>
-    <div class="action-btns">
-      <button class="copy-btn" onclick="copyAll()">📋 Copy All 3</button>
-      <button class="archive-btn" onclick="archiveDay()">📁 Archive & Clear Day</button>
+    
+    <!-- Post Editor (Hidden until day selected) -->
+    <div class="post-editor" id="post-editor">
+      <div class="editor-header">
+        <h2 class="editor-title" id="editor-title">Select a day to edit</h2>
+        <button class="close-btn" onclick="closeEditor()">Close</button>
+      </div>
+      
+      <div class="posts-grid">
+        <div class="post-box">
+          <h3>🐦 X / Threads</h3>
+          <textarea id="x-post" placeholder="X/Threads post..."></textarea>
+          <div class="char-count" id="x-count">0 / 280</div>
+        </div>
+        
+        <div class="post-box">
+          <h3>📸 Instagram / Facebook</h3>
+          <textarea id="ig-post" placeholder="Instagram/Facebook post..."></textarea>
+        </div>
+        
+        <div class="post-box">
+          <h3>🎬 TikTok / YouTube Shorts</h3>
+          <textarea id="video-post" placeholder="TikTok/YouTube script..."></textarea>
+        </div>
+      </div>
+      
+      <div class="editor-actions">
+        <button class="btn btn-copy" onclick="copyAll()">📋 Copy All</button>
+        <button class="btn btn-archive" onclick="archiveDay()">📁 Archive & Clear</button>
+      </div>
+    </div>
+    
+    <!-- Archive -->
+    <div class="archive-section">
+      <h2>Archived Posts</h2>
+      <div class="archive-list" id="archive-list">
+        <p style="color: var(--text-muted);">No archived posts yet.</p>
+      </div>
     </div>
   </div>
   
-  <div class="archive-section">
-    <h2>📁 Archive</h2>
-    <div class="archive-list" id="archive-list">
-      <p style="color: #8b949e;">No archived posts yet.</p>
-    </div>
-  </div>
-  
-  <div class="status-msg" id="status"></div>
-
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+  <div class="toast" id="toast"></div>
   
   <script>
-    // Firebase config - same as Dash-Clawd
-    const firebaseConfig = {
-      apiKey: "AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-      authDomain: "dash-clawd.firebaseapp.com",
-      projectId: "dash-clawd",
-      storageBucket: "dash-clawd.appspot.com",
-      messagingSenderId: "123456789",
-      appId: "1:123456789:web:xxxxxxxxxxxxxxxx"
-    };
-    
-    // Initialize Firebase (will work with anon auth for now)
-    let db;
-    try {
-      firebase.initializeApp(firebaseConfig);
-      db = firebase.firestore();
-    } catch(e) {
-      console.log('Firebase not configured, using localStorage');
-    }
-    
+    // Data storage
     let weekData = {};
     let currentDay = null;
     let archive = JSON.parse(localStorage.getItem('socialArchive') || '[]');
     
-    const postTypes = ['announce', 'teaser', 'behind', 'release', 'followup', 'reminder', 'poll'];
+    const postTypes = ['teaser', 'behind', 'announce', 'release', 'followup', 'reminder', 'poll'];
     const typeLabels = {
-      announce: '📢 Announce',
-      teaser: '👀 Teaser', 
-      behind: '🎬 Behind Scenes',
-      release: '🚀 Release',
-      followup: '💬 Follow-up',
-      reminder: '⏰ Reminder',
-      poll: '📊 Poll'
+      teaser: 'Teaser',
+      behind: 'Behind',
+      announce: 'Announce',
+      release: 'Release',
+      followup: 'Follow-up',
+      reminder: 'Reminder',
+      poll: 'Poll'
     };
     
-    // Generate next 7 days
-    function initCalendar() {
-      const calendar = document.getElementById('calendar');
-      calendar.innerHTML = '';
+    // Initialize
+    function init() {
+      loadSavedWeek();
+      renderArchive();
+      initWeekGrid();
+    }
+    
+    // Generate week grid
+    function initWeekGrid() {
+      const grid = document.getElementById('week-grid');
+      grid.innerHTML = '';
       const today = new Date();
       
       for (let i = 0; i < 7; i++) {
@@ -317,31 +521,29 @@
         
         const card = document.createElement('div');
         card.className = `day-card ${hasContent ? 'active' : ''} ${isUsed ? 'used' : ''}`;
-        card.onclick = () => openDay(dayKey, date);
+        card.onclick = () => selectDay(dayKey, date);
         
         card.innerHTML = `
           <div class="day-name">${dayName}</div>
           <div class="day-date">${dayNum}</div>
           ${dayData.type ? `<span class="post-type ${dayData.type}">${typeLabels[dayData.type]}</span>` : ''}
-          ${hasContent ? '<div style="margin-top:8px;font-size:11px;color:#58a6ff;">✓ Ready</div>' : ''}
+          ${hasContent ? '<div class="day-status">✓ Ready</div>' : ''}
         `;
         
-        calendar.appendChild(card);
+        grid.appendChild(card);
       }
     }
     
     // Generate week of posts
-    async function generateWeek() {
-      const prompt = document.getElementById('campaign-prompt').value;
+    function generateWeek() {
+      const prompt = document.getElementById('campaign-prompt').value.trim();
       if (!prompt) {
-        showStatus('Enter a campaign prompt first', 'error');
+        showToast('Enter a campaign prompt first');
         return;
       }
       
-      document.getElementById('loading').classList.add('active');
-      
-      // For now, use templates. In future, could call AI API
-      const templates = generateTemplates(prompt);
+      const what = prompt.replace(/create.*posts.*for/i, '').trim() || 'THE FINE PRINT album';
+      const templates = getTemplates(what);
       
       const today = new Date();
       weekData = {};
@@ -361,128 +563,55 @@
         };
       }
       
-      // Save to Firebase if available, else localStorage
-      if (db) {
-        await db.collection('socialWeeks').doc('current').set({
-          weekData,
-          updatedAt: Date.now()
-        });
-      }
       localStorage.setItem('socialWeek', JSON.stringify(weekData));
-      
-      document.getElementById('loading').classList.remove('active');
-      initCalendar();
-      showStatus('Week generated! Click any day to edit.', 'success');
+      initWeekGrid();
+      showToast('Week generated! Click any day to edit.');
     }
     
-    // Template generator
-    function generateTemplates(prompt) {
-      // Extract what we're promoting
-      const what = prompt.replace(/create.*posts.*for/i, '').trim() || 'THE FINE PRINT album';
-      
+    // Get templates
+    function getTemplates(what) {
       return [
-        {
-          type: 'teaser',
-          x: `👀 Something's coming...\n\n${what}\n\nCan you feel it? ✨\n\n#FILM426 #ComingSoon`,
-          ig: `👀 SOMETHING'S COMING 👀\n\n${what}\n\nThe countdown begins...\n\nWhat do you think is dropping? 👇\n\n.#FILM426 #ComingSoon #NewMusic`,
-          video: `HOOK: "Wait for it..."\nVISUAL: Mysterious album art reveal\nTEXT: "Something drops soon"\nCTA: "Follow to be first to know"`
-        },
-        {
-          type: 'behind',
-          x: `🎬 Behind the scenes:\n\nMaking ${what}\n\nThe late nights. The coffee. The chaos.\n\nIt's all worth it. 🖤\n\n#FILM426 #BehindTheMusic`,
-          ig: `🎬 BEHIND THE SCENES 🎬\n\n${what}\n\nSwipe to see the process →\n\nLate nights. Cold coffee. Pure magic.\n\nWhich track are you most excited for? 👇\n\n.#FILM426 #BTS #StudioLife #Producer`,
-          video: `HOOK: "This is how it's made..."\nB-ROLL: Studio footage, synths, mixing\nVOICEOVER: "Every sound has a story"\nCTA: "Full album drops soon - link in bio"`
-        },
-        {
-          type: 'announce',
-          x: `📢 IT'S HERE!\n\n${what} is officially OUT NOW! 🚀\n\nStream it everywhere:\n[LINK]\n\nLet me know your favorite track! 🖤\n\n#NewMusic #FILM426 #NowPlaying`,
-          ig: `📢 IT'S HERE! 📢\n\n${what}\n\n🚀 OFFICIALLY OUT NOW 🚀\n\nThis one's been months in the making.\nEvery track is a piece of my soul.\n\nLink in bio to stream!\n\nWhat's your vibe today? Drop a 🖤 if you're listening!\n\n.#NewMusic #FILM426 #OutNow #ElectronicMusic #Synthwave`,
-          video: `HOOK (0-3s): "IT'S HERE!"\nDROP (3-15s): [Best drop from album]\nTEXT OVERLAY: "${what} - OUT NOW"\nCTA (15-30s): "Stream link in bio! Which track hits different?"`
-        },
-        {
-          type: 'release',
-          x: `🚀 ${what}\n\nDay 1 has been INSANE.\n\nThank you to everyone streaming, sharing, vibing.\n\nThis is just the beginning. 🖤\n\n#FILM426 #Grateful`,
-          ig: `🚀 RELEASE DAY ENERGY 🚀\n\n${what}\n\nDay 1 has been absolutely WILD.\n\nTo everyone streaming, sharing, commenting -\nyou're the reason I do this.\n\nKeep the vibes going! Link in bio 🖤\n\n.#FILM426 #ReleaseDay #Grateful #NewMusic`,
-          video: `HOOK: "Day 1 recap..."\nMONTAGE: Stream counts, comments, reactions\nTEXT: "You did this"\nCTA: "Keep streaming - link in bio"`
-        },
-        {
-          type: 'followup',
-          x: `💬 Quick question:\n\nWhat's your favorite track from ${what}?\n\nMine changes daily 😅\n\nDrop yours below! 👇\n\n#FILM426 #MusicTalk`,
-          ig: `💬 REAL TALK 💬\n\n${what}\n\nWhat's your CURRENT favorite track?\n\nMine keeps changing depending on my mood.\n\nDrop yours below + tell me WHY 👇\n\n.#FILM426 #MusicTalk #FavoriteTrack #Playlist`,
-          video: `HOOK: "I need to know..."\nTEXT: "Favorite track?"\nSHOW: Track list with polls\nCTA: "Comment your pick!"`
-        },
-        {
-          type: 'reminder',
-          x: `⏰ Weekend reminder:\n\nIf you haven't checked out ${what} yet...\n\nWhat are you waiting for? 😏\n\n[LINK]\n\n#FILM426 #WeekendVibes`,
-          ig: `⏰ WEEKEND REMINDER ⏰\n\n${what}\n\nStill haven't hit play?\n\nPerfect weekend soundtrack right here ↓\n\nLink in bio 🎧\n\n.#FILM426 #WeekendVibes #NewMusic #Playlist`,
-          video: `HOOK: "Weekend soundtrack..."\nPLAY: Best chill track\nTEXT: "${what}"\nCTA: "Link in bio - perfect weekend vibes"`
-        },
-        {
-          type: 'poll',
-          x: `📊 This or That:\n\n${what} tracks:\n\nSide A (tracks 1-7)\nOR\nSide B (tracks 8-15)?\n\nI'm Team [PICK] 🖤\n\n#FILM426 #Poll`,
-          ig: `📊 THIS OR THAT 📊\n\n${what}\n\nSide A (tracks 1-7)\nvs\nSide B (tracks 8-15)\n\nWhich side hits harder?\n\nVote in the poll! 👇\n\n.#FILM426 #ThisOrThat #MusicPoll`,
-          video: `SPLIT SCREEN: Side A vs Side B\nTEXT: "Which side?"\nPOLL STICKER: Side A / Side B\nCTA: "Vote now!"`
-        }
+        { type: 'teaser', x: `👀 Something's coming...\n\n${what}\n\nCan you feel it? ✨\n\n#FILM426 #ComingSoon`, ig: `👀 SOMETHING'S COMING 👀\n\n${what}\n\nThe countdown begins...\n\nWhat do you think is dropping? 👇\n\n.#FILM426 #ComingSoon #NewMusic`, video: `HOOK: "Wait for it..."\nVISUAL: Mysterious album art reveal\nTEXT: "Something drops soon"\nCTA: "Follow to be first to know"` },
+        { type: 'behind', x: `🎬 Behind the scenes:\n\nMaking ${what}\n\nThe late nights. The coffee. The chaos.\n\nIt's all worth it. 🖤\n\n#FILM426 #BehindTheMusic`, ig: `🎬 BEHIND THE SCENES 🎬\n\n${what}\n\nSwipe to see the process →\n\nLate nights. Cold coffee. Pure magic.\n\nWhich track are you most excited for? 👇\n\n.#FILM426 #BTS #StudioLife #Producer`, video: `HOOK: "This is how it's made..."\nB-ROLL: Studio footage, synths, mixing\nVOICEOVER: "Every sound has a story"\nCTA: "Full album drops soon - link in bio"` },
+        { type: 'announce', x: `📢 IT'S HERE!\n\n${what} is officially OUT NOW! 🚀\n\nStream it everywhere:\n[LINK]\n\nLet me know your favorite track! 🖤\n\n#NewMusic #FILM426 #NowPlaying`, ig: `📢 IT'S HERE! 📢\n\n${what}\n\n🚀 OFFICIALLY OUT NOW 🚀\n\nThis one's been months in the making.\nEvery track is a piece of my soul.\n\nLink in bio to stream!\n\nWhat's your vibe today? Drop a 🖤 if you're listening!\n\n.#NewMusic #FILM426 #OutNow #ElectronicMusic #Synthwave`, video: `HOOK (0-3s): "IT'S HERE!"\nDROP (3-15s): [Best drop from album]\nTEXT OVERLAY: "${what} - OUT NOW"\nCTA (15-30s): "Stream link in bio! Which track hits different?"` },
+        { type: 'release', x: `🚀 ${what}\n\nDay 1 has been INSANE.\n\nThank you to everyone streaming, sharing, vibing.\n\nThis is just the beginning. 🖤\n\n#FILM426 #Grateful`, ig: `🚀 RELEASE DAY ENERGY 🚀\n\n${what}\n\nDay 1 has been absolutely WILD.\n\nTo everyone streaming, sharing, commenting -\nyou're the reason I do this.\n\nKeep the vibes going! Link in bio 🖤\n\n.#FILM426 #ReleaseDay #Grateful #NewMusic`, video: `HOOK: "Day 1 recap..."\nMONTAGE: Stream counts, comments, reactions\nTEXT: "You did this"\nCTA: "Keep streaming - link in bio"` },
+        { type: 'followup', x: `💬 Quick question:\n\nWhat's your favorite track from ${what}?\n\nMine changes daily 😅\n\nDrop yours below! 👇\n\n#FILM426 #MusicTalk`, ig: `💬 REAL TALK 💬\n\n${what}\n\nWhat's your CURRENT favorite track?\n\nMine keeps changing depending on my mood.\n\nDrop yours below + tell me WHY 👇\n\n.#FILM426 #MusicTalk #FavoriteTrack #Playlist`, video: `HOOK: "I need to know..."\nTEXT: "Favorite track?"\nSHOW: Track list with polls\nCTA: "Comment your pick!"` },
+        { type: 'reminder', x: `⏰ Weekend reminder:\n\nIf you haven't checked out ${what} yet...\n\nWhat are you waiting for? 😏\n\n[LINK]\n\n#FILM426 #WeekendVibes`, ig: `⏰ WEEKEND REMINDER ⏰\n\n${what}\n\nStill haven't hit play?\n\nPerfect weekend soundtrack right here ↓\n\nLink in bio 🎧\n\n.#FILM426 #WeekendVibes #NewMusic #Playlist`, video: `HOOK: "Weekend soundtrack..."\nPLAY: Best chill track\nTEXT: "${what}"\nCTA: "Link in bio - perfect weekend vibes"` },
+        { type: 'poll', x: `📊 This or That:\n\n${what} tracks:\n\nSide A (tracks 1-7)\nOR\nSide B (tracks 8-15)?\n\nI'm Team [PICK] 🖤\n\n#FILM426 #Poll`, ig: `📊 THIS OR THAT 📊\n\n${what}\n\nSide A (tracks 1-7)\nvs\nSide B (tracks 8-15)\n\nWhich side hits harder?\n\nVote in the poll! 👇\n\n.#FILM426 #ThisOrThat #MusicPoll`, video: `SPLIT SCREEN: Side A vs Side B\nTEXT: "Which side?"\nPOLL STICKER: Side A / Side B\nCTA: "Vote now!"` }
       ];
     }
     
-    // Open day editor
-    function openDay(dayKey, dateObj) {
+    // Select day to edit
+    function selectDay(dayKey, dateObj) {
       currentDay = dayKey;
       const dayData = weekData[dayKey] || {};
       
       document.getElementById('editor-title').textContent = 
-        `${dateObj.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })} ${dayData.type ? '- ' + typeLabels[dayData.type] : ''}`;
+        `${dateObj.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}` +
+        (dayData.type ? ` — ${typeLabels[dayData.type]}` : '');
       
       document.getElementById('x-post').value = dayData.x || '';
       document.getElementById('ig-post').value = dayData.ig || '';
       document.getElementById('video-post').value = dayData.video || '';
       
       updateCharCount();
-      document.getElementById('editor').classList.add('active');
-      document.getElementById('x-post').focus();
+      document.getElementById('post-editor').classList.add('active');
+      
+      // Scroll to editor
+      document.getElementById('post-editor').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
     
+    // Close editor
     function closeEditor() {
-      // Save current edits
       if (currentDay && weekData[currentDay]) {
         weekData[currentDay].x = document.getElementById('x-post').value;
         weekData[currentDay].ig = document.getElementById('ig-post').value;
         weekData[currentDay].video = document.getElementById('video-post').value;
         localStorage.setItem('socialWeek', JSON.stringify(weekData));
       }
-      document.getElementById('editor').classList.remove('active');
+      document.getElementById('post-editor').classList.remove('active');
       currentDay = null;
-      initCalendar();
-    }
-    
-    // Archive day
-    async function archiveDay() {
-      if (!currentDay || !weekData[currentDay]) return;
-      
-      const dayData = weekData[currentDay];
-      const archiveEntry = {
-        ...dayData,
-        archivedAt: new Date().toISOString(),
-        archivedDate: new Date().toLocaleDateString()
-      };
-      
-      archive.unshift(archiveEntry);
-      localStorage.setItem('socialArchive', JSON.stringify(archive));
-      
-      if (db) {
-        await db.collection('socialArchive').add(archiveEntry);
-      }
-      
-      // Clear from week
-      weekData[currentDay] = { ...weekData[currentDay], x: '', ig: '', video: '', used: true };
-      localStorage.setItem('socialWeek', JSON.stringify(weekData));
-      
-      document.getElementById('editor').classList.remove('active');
-      currentDay = null;
-      initCalendar();
-      renderArchive();
-      showStatus('Day archived!', 'success');
+      initWeekGrid();
     }
     
     // Copy all posts
@@ -494,27 +623,47 @@
       const all = `=== X/THREADS ===\n${x}\n\n=== INSTAGRAM/FACEBOOK ===\n${ig}\n\n=== TIKTOK/YOUTUBE ===\n${video}`;
       
       navigator.clipboard.writeText(all).then(() => {
-        showStatus('All posts copied!', 'success');
+        showToast('All posts copied to clipboard!');
       });
+    }
+    
+    // Archive day
+    function archiveDay() {
+      if (!currentDay || !weekData[currentDay]) return;
+      
+      const dayData = weekData[currentDay];
+      archive.unshift({
+        ...dayData,
+        archivedAt: new Date().toISOString(),
+        archivedDate: new Date().toLocaleDateString()
+      });
+      
+      localStorage.setItem('socialArchive', JSON.stringify(archive));
+      
+      // Clear day
+      weekData[currentDay] = { ...weekData[currentDay], x: '', ig: '', video: '', used: true };
+      localStorage.setItem('socialWeek', JSON.stringify(weekData));
+      
+      closeEditor();
+      renderArchive();
+      showToast('Day archived!');
     }
     
     // Render archive
     function renderArchive() {
       const list = document.getElementById('archive-list');
       if (archive.length === 0) {
-        list.innerHTML = '<p style="color: #8b949e;">No archived posts yet.</p>';
+        list.innerHTML = '<p style="color: var(--text-muted);">No archived posts yet.</p>';
         return;
       }
       
       list.innerHTML = archive.map((item, i) => `
         <div class="archive-item">
-          <div class="archive-info">
-            <div class="archive-date">${item.archivedDate}</div>
-            <div class="archive-title">${typeLabels[item.type] || 'Post'} - ${item.date}</div>
+          <div>
+            <div class="archive-meta">${item.archivedDate}</div>
+            <div class="archive-title">${typeLabels[item.type] || 'Post'}</div>
           </div>
-          <div class="archive-actions">
-            <button onclick="loadArchive(${i})">Load</button>
-          </div>
+          <button class="archive-btn" onclick="loadArchive(${i})">Load</button>
         </div>
       `).join('');
     }
@@ -522,43 +671,35 @@
     // Load from archive
     function loadArchive(index) {
       const item = archive[index];
-      document.getElementById('campaign-prompt').value = `Reloaded: ${item.date} ${typeLabels[item.type] || ''}`;
-      
-      // Create temp day
       const tempKey = 'temp-' + Date.now();
       weekData[tempKey] = { ...item, date: tempKey };
-      openDay(tempKey, new Date());
+      selectDay(tempKey, new Date());
     }
     
     // Update char count
     function updateCharCount() {
       const x = document.getElementById('x-post').value;
-      document.getElementById('x-count').textContent = `${x.length}/280`;
+      document.getElementById('x-count').textContent = `${x.length} / 280`;
     }
     
     document.getElementById('x-post').addEventListener('input', updateCharCount);
     
-    // Show status
-    function showStatus(msg, type) {
-      const el = document.getElementById('status');
-      el.textContent = msg;
-      el.className = `status-msg ${type} show`;
-      setTimeout(() => el.classList.remove('show'), 3000);
+    // Show toast
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
     }
     
-    // Load saved week on startup
+    // Load saved data
     function loadSavedWeek() {
       const saved = localStorage.getItem('socialWeek');
-      if (saved) {
-        weekData = JSON.parse(saved);
-        initCalendar();
-      }
+      if (saved) weekData = JSON.parse(saved);
     }
     
     // Init
-    loadSavedWeek();
-    renderArchive();
-    initCalendar();
+    init();
   </script>
 </body>
 </html>
