@@ -418,8 +418,8 @@
           <h1>🎵 FILM426 Social Poster Pro</h1>
           <p class="subtitle">Campaign Manager</p>
         </div>
-        <button onclick="alert('Testing');loadLocalCampaigns(true)" style="margin-left:auto;padding:8px 16px;background:#6366f1;color:white;border:none;border-radius:6px;cursor:pointer;">🔄 Sync</button>
-        <button onclick="localStorage.removeItem('socialCampaigns');loadLocalCampaigns(true);" style="margin-left:8px;padding:8px 16px;background:#ef4444;color:white;border:none;border-radius:6px;cursor:pointer;">🗑️ Clear</button>
+        <button id="syncBtn" style="margin-left:auto;padding:8px 16px;background:#6366f1;color:white;border:none;border-radius:6px;cursor:pointer;">🔄 Sync</button>
+        <button id="clearBtn" style="margin-left:8px;padding:8px 16px;background:#ef4444;color:white;border:none;border-radius:6px;cursor:pointer;">🗑️ Clear</button>
       </div>
     </header>
     
@@ -742,6 +742,17 @@
     
     // Init
     init();
+    
+    // Sync buttons
+    document.getElementById('syncBtn').addEventListener('click', function() {
+      console.log('SYNC CLICKED');
+      loadLocalCampaigns(true);
+    });
+    document.getElementById('clearBtn').addEventListener('click', function() {
+      console.log('CLEAR CLICKED');
+      localStorage.removeItem('socialCampaigns');
+      loadLocalCampaigns(true);
+    });
   </script>
 </body>
 </html>
