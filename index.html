@@ -296,6 +296,10 @@
       transition: all 0.2s ease;
     }
     
+    #patreon-post {
+      height: 350px;
+    }
+    
     .post-box textarea:focus {
       outline: none;
       border-color: var(--accent-cyan);
@@ -459,6 +463,11 @@
         <div class="post-box">
           <h3>🎬 TikTok / YouTube Shorts</h3>
           <textarea id="video-post" placeholder="TikTok/YouTube script..."></textarea>
+        </div>
+        
+        <div class="post-box">
+          <h3>❤️ Patreon</h3>
+          <textarea id="patreon-post" placeholder="Patreon post (long-form)..."></textarea>
         </div>
       </div>
       
@@ -663,6 +672,8 @@
         document.getElementById('video-post').value = fixNewlines(dayData.video) || '';
       }
       
+      document.getElementById('patreon-post').value = fixNewlines(dayData.patreon) || '';
+      
       updateCharCount();
       document.getElementById('editor').classList.add('active');
       document.getElementById('editor').scrollIntoView({ behavior: 'smooth' });
@@ -679,8 +690,9 @@
       const x = document.getElementById('x-post').value;
       const ig = document.getElementById('ig-post').value;
       const video = document.getElementById('video-post').value;
+      const patreon = document.getElementById('patreon-post').value;
       
-      const all = `=== X/THREADS ===\n${x}\n\n=== INSTAGRAM/FACEBOOK ===\n${ig}\n\n=== TIKTOK/YOUTUBE ===\n${video}`;
+      const all = `=== X/THREADS ===\n${x}\n\n=== INSTAGRAM/FACEBOOK ===\n${ig}\n\n=== TIKTOK/YOUTUBE ===\n${video}\n\n=== PATREON ===\n${patreon}`;
       
       navigator.clipboard.writeText(all).then(() => {
         showToast('Copied to clipboard!');
@@ -731,6 +743,21 @@
     }
     
     document.getElementById('x-post').addEventListener('input', updateCharCount);
+    document.getElementById('x-post').addEventListener('input', () => saveCurrentDay());
+    document.getElementById('ig-post').addEventListener('input', () => saveCurrentDay());
+    document.getElementById('video-post').addEventListener('input', () => saveCurrentDay());
+    document.getElementById('patreon-post').addEventListener('input', () => saveCurrentDay());
+    
+    // Save current day data
+    function saveCurrentDay() {
+      if (!currentDay) return;
+      weekData[currentDay].x = document.getElementById('x-post').value;
+      weekData[currentDay].ig = document.getElementById('ig-post').value;
+      weekData[currentDay].video = document.getElementById('video-post').value;
+      weekData[currentDay].patreon = document.getElementById('patreon-post').value;
+      localStorage.setItem('socialCampaigns', JSON.stringify(campaigns));
+      localStorage.setItem('socialWeekData', JSON.stringify(weekData));
+    }
     
     // Toast
     function showToast(msg) {
