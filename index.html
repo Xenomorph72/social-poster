@@ -300,6 +300,10 @@
       height: 350px;
     }
     
+    #image-prompt {
+      height: 200px;
+    }
+    
     .post-box textarea:focus {
       outline: none;
       border-color: var(--accent-cyan);
@@ -468,6 +472,11 @@
         <div class="post-box">
           <h3>❤️ Patreon</h3>
           <textarea id="patreon-post" placeholder="Patreon post (long-form)..."></textarea>
+        </div>
+        
+        <div class="post-box">
+          <h3>🖼️ Image Prompts</h3>
+          <textarea id="image-prompt" placeholder="Image generation prompts for this campaign..."></textarea>
         </div>
       </div>
       
@@ -673,6 +682,7 @@
       }
       
       document.getElementById('patreon-post').value = fixNewlines(dayData.patreon) || '';
+      document.getElementById('image-prompt').value = fixNewlines(dayData.image_prompt) || '';
       
       updateCharCount();
       document.getElementById('editor').classList.add('active');
@@ -691,8 +701,9 @@
       const ig = document.getElementById('ig-post').value;
       const video = document.getElementById('video-post').value;
       const patreon = document.getElementById('patreon-post').value;
+      const imagePrompt = document.getElementById('image-prompt').value;
       
-      const all = `=== X/THREADS ===\n${x}\n\n=== INSTAGRAM/FACEBOOK ===\n${ig}\n\n=== TIKTOK/YOUTUBE ===\n${video}\n\n=== PATREON ===\n${patreon}`;
+      const all = `=== X/THREADS ===\n${x}\n\n=== INSTAGRAM/FACEBOOK ===\n${ig}\n\n=== TIKTOK/YOUTUBE ===\n${video}\n\n=== PATREON ===\n${patreon}\n\n=== IMAGE PROMPTS ===\n${imagePrompt}`;
       
       navigator.clipboard.writeText(all).then(() => {
         showToast('Copied to clipboard!');
@@ -755,6 +766,7 @@
       weekData[currentDay].ig = document.getElementById('ig-post').value;
       weekData[currentDay].video = document.getElementById('video-post').value;
       weekData[currentDay].patreon = document.getElementById('patreon-post').value;
+      weekData[currentDay].image_prompt = document.getElementById('image-prompt').value;
       localStorage.setItem('socialCampaigns', JSON.stringify(campaigns));
       localStorage.setItem('socialWeekData', JSON.stringify(weekData));
     }
