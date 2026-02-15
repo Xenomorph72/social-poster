@@ -419,6 +419,7 @@
           <p class="subtitle">Campaign Manager</p>
         </div>
         <button onclick="loadLocalCampaigns(true)" style="margin-left:auto;padding:8px 16px;background:#6366f1;color:white;border:none;border-radius:6px;cursor:pointer;">🔄 Sync</button>
+        <button onclick="localStorage.removeItem('socialCampaigns');loadLocalCampaigns(true);" style="margin-left:8px;padding:8px 16px;background:#ef4444;color:white;border:none;border-radius:6px;cursor:pointer;">🗑️ Clear</button>
       </div>
     </header>
     
