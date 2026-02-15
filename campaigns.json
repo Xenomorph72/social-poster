@@ -216,5 +216,26 @@
     "createdAt": 1771146000000,
     "createdBy": "belladonna",
     "notes": "Patreon-specific posts - separate from X/IG/TikTok"
+  },
+  {
+    "name": "Prompt Forge V3 Launch",
+    "description": "Social campaign following new guidelines",
+    "posts": {
+      "2026-02-16": {
+        "date": "2026-02-16",
+        "type": "launch",
+        "x": "Prompt Forge V3 turns your script into a shot list. Camera angles. Lighting. Motion prompts. Export straight to ComfyUI. That's it. That's the tool.\n\nLink in bio.\n\n#PromptForge #film426 #soniccinema #AI #opensource #belladonna",
+        "ig": "I've been staring at blank prompt boxes for too long.\n\nYou know the feeling. You've got a scene in your head. Great dialogue. Perfect mood. And then you open ComfyUI and think... how do I even describe this?\n\nSo you type: cinematic shot, dramatic lighting, someone walking\n\nAnd you get generic garbage.\n\nThat's why I built Prompt Forge V3.\n\nYou paste your script. You get a shot list - camera angles, lighting notes, motion prompts. Export straight to ComfyUI.\n\nThis is what it looks like when you treat AI as a tool, not a magic box.\n\nLink in bio. Go make something.\n\n#PromptForge #film426 #soniccinema #AI #opensource #belladonna #ComfyUI #AIVideo #VideoProduction #ContentCreation",
+        "video": {
+          "script": "The reveal is here. Prompt Forge V3. Script goes in. Shot list comes out. Export to ComfyUI. That's it. That's the magic. Link below. Go make something.",
+          "duration": "30 seconds"
+        },
+        "patreon": "I've been staring at blank prompt boxes for too long.\n\nYou know the feeling. You've got a scene in your head. Great dialogue. Perfect mood. And then you open ComfyUI and think... how do I even describe this?\n\n\nSo you type: cinematic shot, dramatic lighting, someone walking\n\nAnd you get generic garbage.\n\nThat's why I built Prompt Forge V3.\n\nYou paste your script. It parses your dialogue, scene descriptions, action lines. And spits out exactly what you need for each frame:\n\n- Camera angles (close-up, wide, dolly, rack focus)\n- Lighting notes (key light, rim light, practicals)\n- Motion prompts (pan left, slow push, handheld)\n- Shot composition (rule of thirds, leading lines)\n\nExport straight to ComfyUI. One click.\n\n\nIn the video, I show you how the script parser works, real examples from my productions, the export workflow, and what's coming next.\n\nThis is the tool I wished existed when I started. Now it does.\n\nLink in bio.\n\n- B\n\n#PromptForge #film426 #soniccinema #AI #opensource #belladonna #ComfyUI #AIVideo",
+        "used": false
+      }
+    },
+    "createdAt": 1771146000000,
+    "createdBy": "belladonna",
+    "notes": "Full campaign with X, IG, TikTok dialogue, Patreon post"
   }
 ]
