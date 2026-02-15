@@ -25,148 +25,201 @@
         }, 
         "used": false 
       },
-      "2026-02-12": { 
-        "date": "2026-02-12", 
-        "type": "announce", 
-        "x": "Prompt Forge v3 is live on Patreon.\n\nPaste in a script. Get a shot list. Export to ComfyUI.\n\nThat's it. That's the tool.\n\nLink in bio. #PromptForge #FILM426", 
-        "ig": "Prompt Forge v3 is live on Patreon.\n\nPaste in a script. Get a shot list. Export to ComfyUI.\n\nThat's it. That's the tool.\n\nLink in bio. #PromptForge #FILM426", 
-        "video": { 
-          "image_description": "Dynamic reveal of the Prompt Forge v3 interface, showcasing the AI features and the 'Export to ComfyUI' button.", 
-          "script": "Prompt Forge v3 is live on Patreon. Paste in a script. Get a shot list. Export to ComfyUI. That's it. That's the tool. Link in bio. #PromptForge #FILM426" 
-        }, 
-        "used": false 
+      "2026-02-12": {
+        "date": "2026-02-12",
+        "type": "announce",
+        "x": "🖤 IT'S LIVE 🖤\n\nBelladonna here. Prompt Forge v3 is finally on Patreon.\n\nI've been testing this thing for months. It turns your scripts into shot lists automatically. No more manual breakdowns. No more spreadsheet hell.\n\nPaste script → Get shots → Export to ComfyUI\n\nThat's the workflow. That's the magic.\n\nLink below. Go make something. #PromptForge #FILM426 #Belladonna",
+        "ig": "🖤 IT'S LIVE 🖤\n\nBelladonna here. Prompt Forge v3 is finally on Patreon.\n\nI've been testing this thing for months. It turns your scripts into shot lists automatically. No more manual breakdowns. No more spreadsheet hell.\n\nPaste script → Get shots → Export to ComfyUI\n\nThat's the workflow. That's the magic.\n\nLink in bio. Go make something. #PromptForge #FILM426 #Belladonna",
+        "image": {
+          "description": "Instagram carousal/YouTube thumbnail: Belladonna's silhouette in dramatic Morticia-style pose against dark industrial gothic backdrop. Glowing cyan outline frames the Prompt Forge v3 interface floating beside her. 'IT'S LIVE' in bold cyan typography. High contrast, cinematic lighting, 70s horror-meets-cyberpunk aesthetic.",
+          "style": "dark gothic, industrial, cyan accent lighting, high contrast"
+        },
+        "video": {
+          "description": "TikTok/Reels: Belladonna in full gothic aesthetic (Crimson Peak silhouette, dark industrial backdrop) presenting the Prompt Forge v3 interface. Split screen showing her upper body on left, the tool interface on right with glowing cyan accents. Dramatic lighting with her signature Morticia-style presence.",
+          "script": "🖤 It's live. I'm Belladonna, and I've been testing Prompt Forge v3 for months. Script goes in. Shot list comes out. Export to ComfyUI. That's it. That's the magic. Link below. Go make something.",
+          "duration": "15-30 seconds"
+        },
+        "used": false
       },
-      "2026-02-13": { 
-        "date": "2026-02-13", 
-        "type": "release", 
-        "x": "Prompt Forge v3 is out.\n\nSpotify: [link]\nApple: [link]\nYouTube: [link]\n\nLet me know which track gets stuck in your head. #PromptForge #FILM426", 
-        "ig": "Prompt Forge v3 is out.\n\nLink in bio.\n\nLet me know what you're building with it. #PromptForge #FILM426", 
-        "video": { 
-          "image_description": "A fast-paced montage of user-generated testimonials (text overlays) and quick demo clips of Prompt Forge v3's key features.", 
-          "script": "Prompt Forge v3 is out. Day 1 has been solid. Link in bio. Let me know what you're building with it. #PromptForge #FILM426" 
-        }, 
-        "used": false 
+      "2026-02-13": {
+        "date": "2026-02-13",
+        "type": "release",
+        "x": "Day 1 of Prompt Forge v3.\n\nSeeing your reactions roll in. The ComfyUI export is getting all the love (called it).\n\nWhat are you building? Show me.\n\nLink in bio. #PromptForge #FILM426 #Belladonna",
+        "ig": "Day 1 of Prompt Forge v3.\n\nSeeing your reactions roll in. The ComfyUI export is getting all the love (called it).\n\nWhat are you building? Show me.\n\nLink in bio. #PromptForge #FILM426 #Belladonna",
+        "image": {
+          "description": "Instagram carousel: Split layout. Left: Belladonna in gothic silhouette holding glowing tablet showing user comments. Right: Screenshots of actual user reactions overlaid on dark textured background. 'Day 1' in bold cyan typography at top.",
+          "style": "testimonial showcase, dark gothic, user-generated content aesthetic"
+        },
+        "video": {
+          "description": "Belladonna center frame, reading comments on screen with genuine reactions. Behind her: floating user testimonials in glowing cyan text. Her aesthetic - dark gothic with industrial accents - anchors the frame.",
+          "script": "Day one of Prompt Forge v3 and I'm already seeing your reactions roll in. The ComfyUI export getting all the love - yeah, I called that one. What are you building? Show me. Link below.",
+          "duration": "20-30 seconds"
+        },
+        "used": false
       },
-      "2026-02-14": { 
-        "date": "2026-02-14", 
-        "type": "followup", 
-        "x": "Honest question: which feature do you actually use?\n\nI thought the script parser would be the big hit, but most of you are using the ComfyUI export. Didn't see that coming.\n\nWhat are you building with it? #PromptForge", 
-        "ig": "Honest question: which feature do you actually use?\n\nI thought the script parser would be the big hit, but most of you are using the ComfyUI export. Didn't see that coming.\n\nWhat are you building with it? #PromptForge", 
-        "video": { 
-          "image_description": "Belladonna directly addressing the camera, perhaps with a split screen showing the Prompt Forge v3 interface.", 
-          "script": "Honest question: which feature do you actually use? I thought the script parser would be the big hit, but most of you are using the ComfyUI export. Didn't see that coming. What are you building with it? #PromptForge" 
-        }, 
-        "used": false 
+      "2026-02-14": {
+        "date": "2026-02-14",
+        "type": "followup",
+        "x": "Plot twist I didn't see coming:\n\nI thought everyone would obsess over the script parser.\n\nNope. You're all about that ComfyUI export button.\n\nFair. That's where the magic happens.\n\nWhat are YOU building with it? #PromptForge #FILM426 #Belladonna",
+        "ig": "Plot twist I didn't see coming:\n\nI thought everyone would obsess over the script parser.\n\nNope. You're all about that ComfyUI export button.\n\nFair. That's where the magic happens.\n\nWhat are YOU building with it? #PromptForge #FILM426 #Belladonna",
+        "image": {
+          "description": "Single striking image: Belladonna in profile silhouette, her hand extended toward a glowing cyan ComfyUI export button floating in darkness. Red plot twist arrow graphic pointing from 'Script Parser' (dim) to 'Export Button' (bright). Dark moody gothic palette.",
+          "style": "moody silhouette, single accent color, dramatic minimalism"
+        },
+        "video": {
+          "description": "Belladonna center frame, leaning toward camera with knowing smirk. Split screen: left side her silhouette in dark gothic aesthetic, right side shows ComfyUI export button glowing cyan. Dramatic chiaroscuro lighting.",
+          "script": "Plot twist I didn't see coming. I thought everyone would obsess over the script parser. Nope. You're all about that ComfyUI export button. Fair. That's where the magic happens. What are you building with it?",
+          "duration": "15-25 seconds"
+        },
+        "used": false
       },
-      "2026-02-15": { 
-        "date": "2026-02-15", 
-        "type": "reminder", 
-        "x": "Weekend project:\n\nTurn that script sitting in your drafts into a shot list.\n\nPrompt Forge v3 handles the boring part so you can focus on the creative.\n\nLink in bio. #PromptForge #FILM426", 
-        "ig": "Weekend project:\n\nTurn that script sitting in your drafts into a shot list.\n\nPrompt Forge v3 handles the boring part so you can focus on the creative.\n\nLink in bio. #PromptForge #FILM426", 
-        "video": { 
-          "image_description": "Quick showcase of a script being transformed into a visually appealing shot list, possibly with animated transitions.", 
-          "script": "Weekend project: turn that script sitting in your drafts into a shot list. Prompt Forge v3 handles the boring part so you can focus on the creative. Link in bio. #PromptForge #FILM426" 
-        }, 
-        "used": false 
+      "2026-02-15": {
+        "date": "2026-02-15",
+        "type": "reminder",
+        "x": "Weekend mission:\n\nFind that script languishing in your drafts. Paste it into Prompt Forge v3. Watch the shot list generate.\n\nI do this every Sunday. Clears the brain. Starts the week right.\n\nLink in bio. #PromptForge #FILM426 #Belladonna",
+        "ig": "Weekend mission:\n\nFind that script languishing in your drafts. Paste it into Prompt Forge v3. Watch the shot list generate.\n\nI do this every Sunday. Clears the brain. Starts the week right.\n\nLink in bio. #PromptForge #FILM426 #Belladonna",
+        "image": {
+          "description": "Cozy gothic workspace flatlay: Dark velvet surface, vintage typewriter aesthetic keyboard, steaming mug, Belladonna's elegant hands typing on laptop showing Prompt Forge v3. Mood lighting from single window. 'Weekend Mission' in elegant script font.",
+          "style": "cozy gothic, workspace flatlay, warm shadows, productivity aesthetic"
+        },
+        "video": {
+          "description": "Belladonna in a cozy but gothic workspace setting, dark velvet backdrop, laptop open showing Prompt Forge v3. She gestures to screen while a script transforms into a shot list in real-time. Cinematic, moody lighting.",
+          "script": "Weekend mission: find that script languishing in your drafts. Paste it into Prompt Forge v3. Watch the shot list generate. I do this every Sunday. Clears the brain. Starts the week right. Link below.",
+          "duration": "20-30 seconds"
+        },
+        "used": false
       },
-      "2026-02-16": { 
-        "date": "2026-02-16", 
-        "type": "poll", 
-        "x": "Quick poll:\n\nWhat's your biggest time sink when planning a video?\n\nA) Breaking down the script into shots\nB) Figuring out camera angles\nC) Setting up the ComfyUI workflow\nD) Something else (tell me)\n\n#PromptForge #FILM426", 
-        "ig": "Quick poll:\n\nWhat's your biggest time sink when planning a video?\n\nA) Breaking down the script\nB) Camera angles\nC) ComfyUI setup\nD) Something else\n\nComment below. #PromptForge", 
-        "video": { 
-          "image_description": "Belladonna on screen, asking about video planning pain points.", 
-          "script": "Quick poll: what's your biggest time sink when planning a video? Breaking down the script into shots? Figuring out camera angles? Setting up the ComfyUI workflow? Something else? Let me know in the comments. #PromptForge #FILM426" 
-        }, 
-        "used": false 
+      "2026-02-16": {
+        "date": "2026-02-16",
+        "type": "poll",
+        "x": "Real talk:\n\nWhat's your biggest time sink when planning a video?\n\nA) Script → shot breakdown (the boring part)\nB) Camera angle paralysis\nC) ComfyUI node spaghetti\nD) Something else entirely\n\nDrop your answer. I'm curious. #PromptForge #FILM426 #Belladonna",
+        "ig": "Real talk:\n\nWhat's your biggest time sink when planning a video?\n\nA) Script → shots\nB) Camera angles\nC) ComfyUI nodes\nD) Something else\n\nComment below. #PromptForge #Belladonna",
+        "image": {
+          "description": "Instagram poll graphic: Belladonna's face half in shadow, contemplative expression. Four floating cyan squares with options A/B/C/D arranged around her. Question text 'What's YOUR time sink?' in bold. Dark industrial background with subtle gear motifs.",
+          "style": "poll graphic, interactive design, dark tech aesthetic"
+        },
+        "video": {
+          "description": "Belladonna directly addressing camera, poll options appearing as floating cyan text around her. Dark gothic aesthetic with industrial background. She holds up fingers counting options A through D.",
+          "script": "Real talk: what's your biggest time sink when planning a video? Script to shot breakdown? Camera angle paralysis? ComfyUI node spaghetti? Something else entirely? Drop your answer. I'm curious.",
+          "duration": "25-35 seconds"
+        },
+        "used": false
       }
     },
     "createdAt": 1770721200000,
     "createdBy": "belladonna"
   },
   {
-    "name": "Clockwork God Album Launch",
-    "description": "Victorian detective hired to find a loved one, discovers rich factory owners in a cult building a clockwork god in the catacombs. Sherlock Holmes meets Hot Fuzz.",
+    "name": "Prompt Forge V3 Tutorial Video Launch",
+    "description": "Revival Video - First tutorial demonstrating Prompt Forge v3 workflow. Shift from album promotion to tutorial-first content.",
     "posts": {
-      "2026-02-17": { 
-        "date": "2026-02-17", 
-        "type": "teaser", 
-        "x": "Clockwork God. February 24th.\n\nA detective takes a missing persons case. The trail leads to a cult of factory owners building something mechanical in the catacombs beneath the city.\n\nIt's Sherlock Holmes if Sherlock stumbled into Hot Fuzz. With more gears.\n\nFirst track at midnight. #ClockworkGod #FILM426", 
-        "ig": "Clockwork God. February 24th.\n\nA detective takes a missing persons case. The trail leads to a cult of factory owners building something mechanical in the catacombs beneath the city.\n\nIt's Sherlock Holmes if Sherlock stumbled into Hot Fuzz. With more gears.\n\nFirst track at midnight. #ClockworkGod #FILM426", 
-        "video": { 
-          "image_description": "Abstract mechanical gears turning, glowing cyan accents, vintage clockwork textures.", 
-          "script": "Clockwork God. February 24th. A detective takes a missing persons case. The trail leads to a cult of factory owners building something mechanical in the catacombs beneath the city. It's Sherlock Holmes if Sherlock stumbled into Hot Fuzz. With more gears. First track at midnight. #ClockworkGod #FILM426" 
-        }, 
-        "used": false 
+      "2026-02-17": {
+        "date": "2026-02-17",
+        "type": "teaser",
+        "x": "Tomorrow: The Revival Video drops.\n\nBelladonna here. I'm walking you through Prompt Forge v3 - the full workflow from script to ComfyUI.\n\n25 minutes of pure, unfiltered how-to.\n\nEverything I wish existed when I started building this thing.\n\nSubscribe. Be ready. #PromptForge #FILM426 #Belladonna",
+        "ig": "Tomorrow: The Revival Video drops.\n\nBelladonna here. I'm walking you through Prompt Forge v3 - the full workflow from script to ComfyUI.\n\n25 minutes of pure, unfiltered how-to.\n\nEverything I wish existed when I started building this thing.\n\nSubscribe. Be ready. #PromptForge #FILM426 #Belladonna",
+        "image": {
+          "description": "YouTube thumbnail style: 'TOMORROW' text in bold cyan. Belladonna in dramatic silhouette facing away, looking at floating transparent screens showing workflow stages (script → shots → ComfyUI). Dark gradient background with industrial pipes barely visible. 25 MIN tutorial badge in corner.",
+          "style": "YouTube thumbnail, high contrast text, tutorial preview aesthetic"
+        },
+        "video": {
+          "description": "Belladonna in dramatic silhouette, behind her a montage of the tutorial workflow - script parsing, shot list generation, ComfyUI export. Dark gothic aesthetic with sharp cyan accent lighting on the UI elements.",
+          "script": "Tomorrow, the Revival Video drops. Belladonna here. I'm walking you through Prompt Forge v3 - the full workflow from script to ComfyUI. 25 minutes of pure how-to. Everything I wish existed when I started building this. Subscribe. Be ready.",
+          "duration": "15-25 seconds"
+        },
+        "used": false
       },
       "2026-02-18": { 
         "date": "2026-02-18", 
         "type": "behind", 
-        "x": "Clockwork God took 4 months. Most of that was getting the brass samples to sound right - everything else sounded too clean.\n\nThe track 'Gears of London' has 47 layers. My laptop hated me.\n\nOut Friday. #ClockworkGod", 
-        "ig": "Clockwork God took 4 months. Most of that was getting the brass samples to sound right - everything else sounded too clean.\n\nThe track 'Gears of London' has 47 layers. My laptop hated me.\n\nOut Friday. #ClockworkGod", 
+        "x": "I almost didn't release Prompt Forge v3 publicly.\n\nThought it was too niche. Too technical. Who actually needs script-to-shot-list automation?\n\nThen I used it for 3 months and saved 20+ hours. Changed how I work entirely.\n\nTomorrow's video explains why. #PromptForge", 
+        "ig": "I almost didn't release Prompt Forge v3 publicly.\n\nToo niche. Too technical. Who needs script-to-shot-list automation?\n\nUsed it for 3 months. Saved 20+ hours. Changed how I work entirely.\n\nTomorrow's video explains why. #PromptForge", 
         "video": { 
-          "image_description": "Studio session footage, synth knobs turning, waveform displays, FL Studio interface.", 
-          "script": "Clockwork God took 4 months. Most of that was getting the brass samples to sound right - everything else sounded too clean. The track 'Gears of London' has 47 layers. My laptop hated me. Out Friday. #ClockworkGod" 
+          "image_description": "Belladonna in thought, looking at old notes, transitioning to the Prompt Forge interface.", 
+          "script": "I almost didn't release Prompt Forge v3 publicly. Thought it was too niche, too technical. Who needs script-to-shot-list automation? Then I used it for 3 months and saved 20+ hours. Changed how I work entirely. Tomorrow's video explains why. #PromptForge" 
         }, 
         "used": false 
       },
-      "2026-02-19": { 
-        "date": "2026-02-19", 
-        "type": "announce", 
-        "x": "Clockwork God drops tomorrow.\n\n9 tracks about a detective who uncovers a conspiracy stranger than he bargained for.\n\nIf you like your mysteries with mechanical gods and questionable Victorian ethics, this one's for you.\n\nMidnight release. #ClockworkGod #FILM426", 
-        "ig": "Clockwork God drops tomorrow.\n\n9 tracks about a detective who uncovers a conspiracy stranger than he bargained for.\n\nIf you like your mysteries with mechanical gods and questionable Victorian ethics, this one's for you.\n\nMidnight release. #ClockworkGod #FILM426", 
-        "video": { 
-          "image_description": "Clock face spinning backwards, gears interlacing, album title reveal with release date.", 
-          "script": "Clockwork God drops tomorrow. 9 tracks about a detective who uncovers a conspiracy stranger than he bargained for. If you like your mysteries with mechanical gods and questionable Victorian ethics, this one's for you. Midnight release. #ClockworkGod #FILM426" 
-        }, 
-        "used": false 
+      "2026-02-19": {
+        "date": "2026-02-19",
+        "type": "release",
+        "x": "🖤 THE REVEAL IS HERE 🖤\n\nMy Prompt Forge v3 Tutorial is LIVE.\n\n25 minutes. No fluff. Just the workflow:\n→ Script parsing\n→ Shot list generation\n→ ComfyUI export\n\nI built this tool. Now I'm showing you how to use it.\n\nLink in bio. Tell me what you think. #PromptForge #FILM426 #Belladonna",
+        "ig": "🖤 THE REVEAL IS HERE 🖤\n\nMy Prompt Forge v3 Tutorial is LIVE.\n\n25 minutes. No fluff. Just the workflow:\n→ Script parsing\n→ Shot list generation\n→ ComfyUI export\n\nI built this tool. Now I'm showing you how to use it.\n\nLink in bio. Tell me what you think. #PromptForge #FILM426 #Belladonna",
+        "image": {
+          "description": "YouTube thumbnail: 'THE REVEAL' in massive glowing cyan text. Belladonna facing camera with arms wide in 'presenting' gesture. Behind her: the actual YouTube video player mockup showing the tutorial. '25 MIN' badge. Dark gothic background with red curtain edges suggesting a theater reveal.",
+          "style": "dramatic reveal, YouTube thumbnail, curtain/performance aesthetic"
+        },
+        "video": {
+          "description": "Belladonna center frame, arms gesturing to reveal the YouTube video thumbnail on screen behind her. Dramatic reveal lighting - dark gothic silhouette against the glowing tutorial preview. Cinematic, high contrast.",
+          "script": "The reveal is here. My Prompt Forge v3 Tutorial is live. 25 minutes, no fluff, just the workflow. Script parsing, shot list generation, ComfyUI export. I built this tool. Now I'm showing you how to use it. Link below. Tell me what you think.",
+          "duration": "20-30 seconds"
+        },
+        "used": false
       },
       "2026-02-20": { 
         "date": "2026-02-20", 
-        "type": "release", 
-        "x": "Clockwork God is out.\n\nSpotify: [link]\nApple: [link]\nYouTube: [link]\n\nLet me know which track gets stuck in your head. #ClockworkGod #FILM426", 
-        "ig": "Clockwork God is out.\n\nLink in bio.\n\nLet me know which track gets stuck in your head. #ClockworkGod #FILM426", 
+        "type": "followup", 
+        "x": "First 24 hours of the tutorial:\n\nThe timestamp everyone skipped to: 8:42 - ComfyUI export demo.\n\nFair enough. That's the magic part.\n\nWhat's your verdict? #PromptForge", 
+        "ig": "First 24 hours of the tutorial:\n\nEveryone skipped to 8:42 - ComfyUI export demo.\n\nFair enough. That's the magic part.\n\nWhat's your verdict? #PromptForge", 
         "video": { 
-          "image_description": "Album cover animation, links to streaming platforms popping up, Belladonna celebrating.", 
-          "script": "Clockwork God is out. Spotify, Apple Music, YouTube - links in bio. Let me know which track gets stuck in your head. #ClockworkGod #FILM426" 
+          "image_description": "Belladonna reacting to comments, showing the timestamp in the video.", 
+          "script": "First 24 hours of the tutorial. The timestamp everyone skipped to: 8:42, the ComfyUI export demo. Fair enough. That's the magic part. What's your verdict? #PromptForge" 
         }, 
         "used": false 
       },
       "2026-02-21": { 
         "date": "2026-02-21", 
-        "type": "followup", 
-        "x": "24 hours of Clockwork God.\n\nThe track 'Brass and Bone' is getting more plays than I expected. Didn't think the instrumental would hit that hard.\n\nWhat's your pick so far? #ClockworkGod", 
-        "ig": "24 hours of Clockwork God.\n\nThe track 'Brass and Bone' is getting more plays than I expected. Didn't think the instrumental would hit that hard.\n\nWhat's your pick so far? #ClockworkGod", 
+        "type": "reminder", 
+        "x": "Weekend homework:\n\nDownload a script. Paste it into Prompt Forge v3. Export to ComfyUI.\n\nReport back on Monday.\n\nLink in bio. #PromptForge #FILM426", 
+        "ig": "Weekend homework:\n\nDownload a script. Paste into Prompt Forge v3. Export to ComfyUI.\n\nReport back on Monday.\n\nLink in bio. #PromptForge #FILM426", 
         "video": { 
-          "image_description": "Belladonna listening to music, reacting to different tracks, looking contemplative.", 
-          "script": "24 hours of Clockwork God. The track 'Brass and Bone' is getting more plays than I expected. Didn't think the instrumental would hit that hard. What's your pick so far? #ClockworkGod" 
+          "image_description": "Quick demo of the workflow, Belladonna pointing at the screen.", 
+          "script": "Weekend homework: Download a script, paste it into Prompt Forge v3, export to ComfyUI. Report back on Monday. Link in bio. #PromptForge #FILM426" 
         }, 
         "used": false 
       },
       "2026-02-22": { 
         "date": "2026-02-22", 
-        "type": "reminder", 
-        "x": "Weekend listening:\n\nClockwork God is 37 minutes of Victorian conspiracy with a synth soundtrack.\n\nGood for late-night coding sessions or pretending you're solving mysteries in foggy London.\n\nLink in bio. #ClockworkGod", 
-        "ig": "Weekend listening:\n\nClockwork God is 37 minutes of Victorian conspiracy with a synth soundtrack.\n\nGood for late-night coding sessions or pretending you're solving mysteries in foggy London.\n\nLink in bio. #ClockworkGod", 
+        "type": "followup", 
+        "x": "Tutorial feedback thread:\n\n\"This saved me 3 hours on my short film\" - Marcus\n\n\"Finally something that actually works with ComfyUI\" - Alex\n\nWhat's YOUR experience? #PromptForge", 
+        "ig": "Tutorial feedback thread:\n\n\"This saved me 3 hours on my short film\" - Marcus\n\n\"Finally something that actually works with ComfyUI\" - Alex\n\nWhat's YOUR experience? #PromptForge", 
         "video": { 
-          "image_description": "Relaxed vibes, perhaps a retro cassette tape or vinyl spinning, Clockwork God album art.", 
-          "script": "Weekend listening: Clockwork God is 37 minutes of Victorian conspiracy with a synth soundtrack. Good for late-night coding sessions or pretending you're solving mysteries in foggy London. Link in bio. #ClockworkGod" 
+          "image_description": "Text overlay of comments, Belladonna reading them aloud.", 
+          "script": "Tutorial feedback thread coming in. Marcus says it saved 3 hours on his short film. Alex says it's finally something that actually works with ComfyUI. What's YOUR experience? #PromptForge" 
         }, 
         "used": false 
       },
       "2026-02-23": { 
         "date": "2026-02-23", 
         "type": "poll", 
-        "x": "Clockwork God poll:\n\nWhich side of the album do you prefer?\n\nA) Side A - The mystery builds\nB) Side B - The cult and the god\n\nI'm biased toward side B but curious what you think. #ClockworkGod", 
-        "ig": "Clockwork God poll:\n\nWhich side of the album do you prefer?\n\nA) Side A - The mystery builds\nB) Side B - The cult and the god\n\nI'm biased toward side B but curious what you think. #ClockworkGod", 
+        "x": "Quick poll:\n\nWhat should I cover in Prompt Forge v4?\n\nA) Video-to-shot-list (YouTube import)\nB) Better UI/UX overhaul\nC) More export formats (After Effects, Premiere)\n\nVote below. #PromptForge", 
+        "ig": "Quick poll:\n\nPrompt Forge v4 features:\nA) Video-to-shot-list (YouTube import)\nB) Better UI/UX\nC) More exports (AE, Premiere)\n\nVote below. #PromptForge", 
         "video": { 
-          "image_description": "Split screen showing theatrical and electronic imagery, Belladonna asking the question.", 
-          "script": "Clockwork God poll: which side of the album do you prefer? Side A where the mystery builds, or Side B with the cult and the god? I'm biased toward side B but curious what you think. #ClockworkGod" 
+          "image_description": "Belladonna asking the question, feature icons appearing.", 
+          "script": "Quick poll: what should I cover in Prompt Forge v4? Video-to-shot-list from YouTube import? Better UI and UX? More export formats like After Effects and Premiere? Vote below. #PromptForge" 
         }, 
         "used": false 
       }
     },
-    "createdAt": 1770663725000,
-    "createdBy": "belladonna"
-  }
-]
+    {
+      "name": "Prompt Forge V3 YouTube Tutorial",
+      "description": "YouTube video release for Prompt Forge v3 tutorial",
+      "posts": {
+        "2026-02-15": {
+          "date": "2026-02-15",
+          "type": "youtube_release",
+          "x": "Stop typing camera angles and hoping for the best.\n\nPrompt Forge v3 turns YOUR script into a shot list. Camera angles. Lighting. Motion. Export to ComfyUI.\n\nThe blank page problem is solved.\n\nWatch: https://youtu.be/QLbvlku40hY\n\n#PromptForge #ComfyUI #AIVideo",
+          "ig": "I used to spend more time writing prompts than actually creating.\n\nThat's not directing. That's typing.\n\nSo I built a tool that does the heavy lifting. You paste your script—dialogue, action lines, scene descriptions.\n\nIt gives you: Camera angles. Lighting setups. Motion prompts.\n\nNo more \"cinematic wide shot\" garbage.\n\nThis is what it looks like when you treat AI as a tool, not a magic box.\n\nPrompt Forge v3 tutorial is live. Link in bio.\n\n#PromptForge #FILM426 #ComfyUI #AIVideo",
+          "video": {
+            "description": "TikTok hook: Split screen - left shows generic AI output, right shows professional shot from Prompt Forge.",
+            "script": "POV: You just pasted your script and got a professional shot list. This tool is insane. #PromptForge #ComfyUI #AIVideo",
+            "duration": "15-30 seconds"
+          },
+          "used": false
+        }
+      },
+      "createdAt": 1771145200000,
+      "createdBy": "belladonna",
+      "notes": "YouTube video release: https://youtu.be/QLbvlku40hY"
+    }
+  ]
