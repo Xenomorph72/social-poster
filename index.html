@@ -413,8 +413,13 @@
 <body>
   <div class="container">
     <header>
-      <h1>🎵 FILM426 Social Poster Pro</h1>
-      <p class="subtitle">Campaign Manager</p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div>
+          <h1>🎵 FILM426 Social Poster Pro</h1>
+          <p class="subtitle">Campaign Manager</p>
+        </div>
+        <button onclick="loadLocalCampaigns(true)" style="margin-left:auto;padding:8px 16px;background:#6366f1;color:white;border:none;border-radius:6px;cursor:pointer;">🔄 Sync</button>
+      </div>
     </header>
     
     <!-- Campaign Selection -->
@@ -525,14 +530,18 @@
       }
     }
     
+    // Version for cache-busting
+    const APP_VERSION = Date.now();
+    
     // Local campaigns fallback (localStorage + campaigns.json)
-    async function loadLocalCampaigns() {
+    async function loadLocalCampaigns(forceRefresh = false) {
       // First try localStorage
       let localCampaigns = JSON.parse(localStorage.getItem('socialCampaigns') || '[]');
       
-      // Then try campaigns.json file
+      // Then try campaigns.json file with cache-busting
       try {
-        const response = await fetch('campaigns.json');
+        const cacheParam = forceRefresh ? `?v=${APP_VERSION}` : '';
+        const response = await fetch('campaigns.json' + cacheParam);
         if (response.ok) {
           const fileCampaigns = await response.json();
           // Merge, preferring newer ones
