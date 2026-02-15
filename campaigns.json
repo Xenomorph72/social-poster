@@ -189,5 +189,32 @@
     "createdAt": 1771145200000,
     "createdBy": "belladonna",
     "notes": "YouTube video release: https://youtu.be/QLbvlku40hY"
+  },
+  {
+    "name": "Prompt Forge Ultimate Launch",
+    "description": "Patreon posts for Ultimate app launch",
+    "posts": {
+      "2026-02-20": {
+        "date": "2026-02-20",
+        "type": "teaser",
+        "content": "Something's coming. \ud83d\udda4\n\nI've been building in secret for months. It's not finished yet. But soon.\n\nStay tuned. #PromptForge #FILM426",
+        "used": false
+      },
+      "2026-02-22": {
+        "date": "2026-02-22",
+        "type": "reveal",
+        "content": "Introducing Prompt Forge Ultimate.\n\nThe tool that turns your script into a shot list AND generates your images.\n\nNo switching apps. No copy-paste. Just create.\n\nLink in bio when it drops. #PromptForge",
+        "used": false
+      },
+      "2026-02-25": {
+        "date": "2026-02-25",
+        "type": "launch",
+        "content": "It's LIVE.\n\nPrompt Forge Ultimate is here. Six months of work. One tool.\n\nCheck the link in bio to try it now.\n\n#PromptForge #FILM426",
+        "used": false
+      }
+    },
+    "createdAt": 1771146000000,
+    "createdBy": "belladonna",
+    "notes": "Patreon-specific posts - separate from X/IG/TikTok"
   }
 ]
